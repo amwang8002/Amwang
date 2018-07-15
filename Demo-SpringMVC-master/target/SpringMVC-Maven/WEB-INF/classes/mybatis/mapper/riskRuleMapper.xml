@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.amwang.biz.model.dao.RiskRuleDao">
+  <resultMap id="BaseResultMap" type="com.amwang.biz.model.entity.RiskRule">
+    <result column="RISK_RULE_ID" property="riskRuleId" jdbcType="DECIMAL" />
+    <result column="RULE_TYPE" property="ruleType" jdbcType="VARCHAR" />
+    <result column="RULE_TYPE_NAME" property="ruleTypeName" jdbcType="VARCHAR" />
+    <result column="RULE_DESC_INFO" property="ruleDesc" jdbcType="VARCHAR" />
+    <result column="HANDLE_TYPE" property="handleType" jdbcType="VARCHAR" />
+    <result column="HANDLE_TYPE_NAME" property="handleTypeName" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="STATUS_NAME" property="statusName" jdbcType="VARCHAR" />
+    <result column="SYSTEM_CODE" property="systemCode" jdbcType="VARCHAR" />
+    <result column="BASIC_PRD_CODE" property="basicPrdCode" jdbcType="VARCHAR" />
+    <result column="RISK_TYPE" property="riskType" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapRiskRuleParam" type="com.amwang.biz.model.entity.RiskRuleParam">
+    <result column="PARAM_ID" property="paramId" jdbcType="DECIMAL" />
+    <result column="RISK_RULE_ID" property="riskRuleId" jdbcType="DECIMAL" />
+    <result column="PARAM_NAME" property="paramName" jdbcType="VARCHAR" />
+    <result column="PARAM_VALUE" property="paramValue" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapRiskRulePrdCfg" type="com.amwang.biz.model.entity.RiskRulePrdCfg">
+    <result column="CFG_ID" property="cfgId" jdbcType="DECIMAL" />
+    <result column="RISK_RULE_ID" property="riskRuleId" jdbcType="DECIMAL" />
+    <result column="SYSTEM_CODE" property="systemCode" jdbcType="VARCHAR" />
+    <result column="BASIC_PRD_CODE" property="basicPrdCode" jdbcType="VARCHAR" />
+    <result column="SYSTEM_NAME" property="systemName" jdbcType="VARCHAR" />
+    <result column="BASIC_PRD_NAME" property="basicPrdName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+   	T.RISK_RULE_ID, T.RULE_TYPE, T.RULE_DESC_INFO, T.HANDLE_TYPE, T.STATUS, T.RISK_TYPE
+  </sql>
+ <select id="selectByRiskRuleId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from T_RISK_RULE T
+    where 1=1
+     <if test="riskRuleId != null" >
+       AND T.RISK_RULE_ID = #{riskRuleId,jdbcType=DECIMAL}
+      </if>
+  </select>
+
+  <select id="queryRiskRuleCount" parameterType="com.amwang.biz.model.entity.RiskRule" resultType="int">
+	SELECT COUNT(1)
+	FROM T_RISK_RULE T
+    LEFT JOIN T_BAS_DICT_ITEM D1 ON D1.DICT_CODE = 'D2' AND T.STATUS = D1.KEY
+    LEFT JOIN T_BAS_DICT_ITEM D2 ON D2.DICT_CODE = 'D3' AND T.RULE_TYPE = D2.KEY
+    LEFT JOIN T_BAS_DICT_ITEM D3 ON D3.DICT_CODE = 'D4' AND T.HANDLE_TYPE = D3.KEY
+	WHERE 1 = 1
+		<if test=" riskRule.ruleDesc != null and riskRule.ruleDesc != ''">
+			AND T.RULE_DESC_INFO LIKE '%'||#{riskRule.ruleDesc}||'%'
+		</if>
+      	<if test=" riskRule.ruleType != null and riskRule.ruleType != ''">
+			AND T.RULE_TYPE = #{riskRule.ruleType}
+      	</if>
+		<if test=" riskRule.basicPrdCode != null and riskRule.basicPrdCode != ''">
+			AND T.RISK_RULE_ID in (SELECT DISTINCT(B.RISK_RULE_ID) FROM T_RISK_RULE_PRD_CFG B WHERE B.BASIC_PRD_CODE = #{riskRule.basicPrdCode})
+		</if>
+		<if test=" riskRule.status != null and riskRule.status != ''">
+			AND T.STATUS = #{riskRule.status,jdbcType=DECIMAL}
+		</if>
+  </select>
+
+  <select id="queryRiskRuleParam" resultMap="BaseResultMapRiskRuleParam" parameterType="com.amwang.biz.model.entity.RiskRuleParam">
+	SELECT PARAM_ID, RISK_RULE_ID, PARAM_NAME, PARAM_VALUE
+	FROM T_RISK_RULE_PARAM
+	WHERE RISK_RULE_ID = #{riskRuleId,jdbcType=DECIMAL}
+  </select>
+
+  <select id="queryRiskRulePrdCfg" resultMap="BaseResultMapRiskRulePrdCfg" parameterType="com.amwang.biz.model.entity.RiskRulePrdCfg">
+	SELECT T.CFG_ID, T.RISK_RULE_ID, T.BASIC_PRD_CODE, P.BASIC_PRD_NAME
+	FROM T_RISK_RULE_PRD_CFG T
+	LEFT JOIN TCIM_PRD_BASIC_PRD P ON T.BASIC_PRD_CODE = P.BASIC_PRD_CODE AND P.OPER_FLAG = 0 AND P.STATUS = 1
+	WHERE RISK_RULE_ID = #{riskRuleId,jdbcType=DECIMAL}
+  </select>
+  <update id="updRiskRuleStatus">
+  	update T_RISK_RULE
+    <set >
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RISK_RULE_ID = #{riskRuleId,jdbcType=DECIMAL}
+  </update>
+</mapper>

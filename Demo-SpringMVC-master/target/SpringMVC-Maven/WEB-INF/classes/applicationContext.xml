@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+	<import resource="classpath*:/spring-quartz-config.xml"/>
+	<!-- bean definitions here -->
+	<context:component-scan base-package="com.amwang.biz" />
+
+	<!-- 配置读取外部配置文件 -->
+<!-- 	<context:property-placeholder location="classpath:env/jdbc.properties" /> -->
+	
+	<!-- 代理datasource，使其能够显式获取preparedStatement的参数值 -->
+<!--     <bean id="proxyDataSource" class="org.jdbcdslog.ConnectionPoolDataSourceProxy"> -->
+<!--         <property name="targetDSDirect" ref="dataSource"/> -->
+<!--     </bean> -->
+<!-- 	<bean id="proxyDataSourceDW" class="org.jdbcdslog.ConnectionPoolDataSourceProxy"> -->
+<!-- 		<property name="targetDSDirect" ref="dataSourceDW"/> -->
+<!-- 	</bean> -->
+	<bean id="proxyDataSourceMyserver" class="org.jdbcdslog.ConnectionPoolDataSourceProxy">
+		<property name="targetDSDirect" ref="dataSourceMyserver"/>
+	</bean>
+	
+	<!-- ************************************************************************************************* -->
+    <!-- *                                    数据源配置                                                                                      	             * -->
+    <!-- ************************************************************************************************* -->
+    <bean id="dataSourceMyserver" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://101.132.160.165:3306/amwang?useUnicode=true&amp;characterEncoding=UTF-8"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="mysql"></property>
+	</bean>
+<!-- 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" -->
+<!-- 		destroy-method="close" p:driverClassName="${jdbc.driverClassName}" -->
+<!-- 		p:url="${jdbc.url}" p:username="${jdbc.username}" p:password="${jdbc.password}" /> -->
+<!-- 	<bean id="dataSourceDW" class="org.apache.commons.dbcp.BasicDataSource" -->
+<!-- 		destroy-method="close" p:driverClassName="${dw.jdbc.driverClassName}" -->
+<!-- 		p:url="${dw.jdbc.url}" p:username="${dw.jdbc.username}" p:password="${dw.jdbc.password}" /> -->
+	<context:annotation-config /> <!-- 此行语句使得resource autowired 等四个注解可以使用 -->
+
+	<!-- 实例化jdbcTemplate,同时注入数据源 -->
+<!-- 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" -->
+<!-- 		p:dataSource-ref="proxyDataSource" /> -->
+<!-- 	<bean id="jdbcTemplateDW" class="org.springframework.jdbc.core.JdbcTemplate" -->
+<!-- 		p:dataSource-ref="proxyDataSourceDW" /> -->
+	<bean id="jdbcTemplateMyserver" class="org.springframework.jdbc.core.JdbcTemplate"
+		p:dataSource-ref="proxyDataSourceMyserver" />
+
+	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->    
+<!--      <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">     -->
+<!--          <property name="dataSource" ref="proxyDataSource" />     -->
+<!--          自动扫描mapping.xml文件     --> 
+<!--          <property name="mapperLocations" value="classpath:/mybatis/mapper/*.xml"></property>   -->
+<!--      </bean>   -->
+<!--      <bean id="sqlSessionFactoryDW" class="org.mybatis.spring.SqlSessionFactoryBean">     -->
+<!--          <property name="dataSource" ref="proxyDataSourceDW" />     -->
+<!--           自动扫描mapping.xml文件     --> 
+<!--          <property name="mapperLocations" value="classpath:/mybatis/dwmapper/*.xml"></property>   -->
+<!--      </bean>   -->
+     <bean id="sqlSessionFactoryMyserver" class="org.mybatis.spring.SqlSessionFactoryBean">    
+         <property name="dataSource" ref="proxyDataSourceMyserver" />    
+         <!-- 自动扫描mapping.xml文件 -->    
+         <property name="mapperLocations" value="classpath:/mybatis/server/*.xml"></property>  
+     </bean>  
+     
+     <!-- DAO接口所在包名，Spring会自动查找其下的类 -->    
+<!--     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">     -->
+<!--         <property name="basePackage" value="com.amwang.biz.model.dao" />     -->
+<!--         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>     -->
+<!--     </bean>  -->
+<!--     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">     -->
+<!--         <property name="basePackage" value="com.amwang.biz.dwmodel.dao" />     -->
+<!--         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryDW"></property>     -->
+<!--     </bean>  -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">    
+        <property name="basePackage" value="com.amwang.biz.serverModel.dao" />    
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryMyserver"></property>    
+    </bean> 
+    
+	<!-- 配置事务管理器 -->
+<!-- 	<bean id="txManager" -->
+<!-- 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> -->
+<!-- 		<property name="dataSource" ref="proxyDataSource" /> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="txManagerDW" -->
+<!-- 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> -->
+<!-- 		<property name="dataSource" ref="proxyDataSourceDW" /> -->
+<!-- 	</bean> -->
+	<bean id="txManagerMyserver"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="proxyDataSourceMyserver" />
+	</bean>
+
+	<!-- 事务扫描开始(开启@Tranctional) -->
+<!-- 	<tx:annotation-driven transaction-manager="txManager" /> -->
+	<tx:annotation-driven transaction-manager="txManagerMyserver" />
+
+</beans>
+<!--     <settings> -->
+<!--         <setting name="logImpl" value="STDOUT_LOGGING"/>   -->
+<!--     </settings> -->
