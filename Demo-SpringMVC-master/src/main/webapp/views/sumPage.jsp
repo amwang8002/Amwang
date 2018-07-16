@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="${ctxPath }/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="${ctxPath }/js/echarts.js"></script>
-<script type="text/javascript" src="${ctxPath }/js/bar/demo-bar2.js"></script>
+<script type="text/javascript" src="${ctxPath }/js/bar/demo-bar.js"></script>
 <script type="text/javascript">
 	var list = ${result};
 </script>

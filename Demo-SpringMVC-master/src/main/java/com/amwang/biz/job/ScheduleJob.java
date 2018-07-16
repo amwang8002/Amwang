@@ -27,7 +27,7 @@ public class ScheduleJob {
 		log.info("爬取数据开始时间："+DateUtil.getCurrentTimeStamp());
 		TbeisaiData data = GetDataFromBeisai.getUrlInfo("http://kj.13322.com/pk10_history_dtoday.html");
 		log.info("请求service数据："+JsonUtils.obj2JsonString(data));
-//		getDataService.addRecord(data);
+		getDataService.addRecord(data);
 		log.info("爬取数据结束时间："+DateUtil.getCurrentTimeStamp());
 	}
 	
