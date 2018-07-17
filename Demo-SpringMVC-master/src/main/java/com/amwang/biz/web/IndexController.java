@@ -1,6 +1,8 @@
 package com.amwang.biz.web;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,15 +11,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.amwang.biz.dwmodel.entity.DwTrade;
 import com.amwang.biz.model.entity.RiskRule;
+import com.amwang.biz.serverModel.entity.SumEachNum;
+import com.amwang.biz.service.MyserverGetDataService;
 import com.amwang.biz.service.RiskRuleService;
 import com.amwang.biz.service.SumDwTradeService;
+import com.amwang.common.MyServerPageModel;
 import com.amwang.common.utils.JsonUtils;
+import com.amwang.utils.Echarts;
+import com.amwang.utils.Series;
 
 @Controller
 @RequestMapping
@@ -30,6 +36,9 @@ public class IndexController {
 
 	@Autowired
 	private SumDwTradeService sumDwTradeService;
+	
+	@Autowired
+	private MyserverGetDataService dataService;
 
 	@RequestMapping("/index")
 	public ModelAndView list(HttpServletRequest request) {
@@ -48,21 +57,34 @@ public class IndexController {
 	@RequestMapping("/sumPrd")
 	public ModelAndView sumPrdList() {
 		ModelAndView mView = new ModelAndView();
-
-		log.info("请求汇总开始");
-		List<DwTrade> listResult = sumDwTradeService.sumPrdInfo();
-		BigDecimal sumCount = new BigDecimal(0);
-		if (!CollectionUtils.isEmpty(listResult)) {
-			for (DwTrade dwTrade : listResult) {
-				sumCount = sumCount.add(dwTrade.getNum());
-			}
-		}
-		mView.addObject("sum", sumCount.toString()).addObject("result", JsonUtils.list2JsonString(listResult));
-		log.error("汇总请求错误提示");
+//		MyServerPageModel pageModel = dataService.sumEachNum();
+//		
+//		mView.addObject("sum", pageModel.getCount()).addObject("result", JsonUtils.list2JsonString(pageModel.getSumEachNums()));
 		mView.setViewName("sumPage");
-		log.info("请求汇总结束");
 		return mView;
 
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value = "showSum")
+	public Echarts showNum1Rate(){
+		log.info("请求汇总开始");
+		MyServerPageModel pageModel = dataService.sumEachNum();
+		List<SumEachNum> result = pageModel.getSumEachNums();
+		List<String> category = new ArrayList<String>();
+		List<BigDecimal> index = new ArrayList<BigDecimal>();
+		
+		for (SumEachNum sumEachNum : result) {
+			category.add(sumEachNum.getNum());
+			index.add(sumEachNum.getRate());
+		}
+		List<String> legend = new ArrayList<String>(Arrays.asList(new String[]{"出现概率"}));//数据分组
+		List<Series> series = new ArrayList<Series>();
+		series.add(new Series("出现概率", "bar", index));
+		Echarts echarts = new Echarts(legend, category, series);
+		
+		log.info("请求汇总结束:{}",JsonUtils.obj2JsonString(echarts));
+		
+		return echarts;
+	}
 }

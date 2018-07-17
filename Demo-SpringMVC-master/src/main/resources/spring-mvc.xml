@@ -8,6 +8,8 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans	http://www.sprin
 default-lazy-init="true">
 
 	
+    <!-- 当配置了<mvc:annotation-driven/>后，会自动加载org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping和org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter，所以如果显示的配置则需去掉配置<mvc:annotation-driven/> -->
+	<mvc:annotation-driven/>
 	<!-- 启动事务添加配置 -->
     <context:component-scan base-package="com.amwang.biz">  
         <!-- 排除扫描service标签 -->
@@ -52,8 +54,6 @@ default-lazy-init="true">
     <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
  
     
-    <!-- 当配置了<mvc:annotation-driven/>后，会自动加载org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping和org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter，所以如果显示的配置则需去掉配置<mvc:annotation-driven/> -->
-	<mvc:annotation-driven/>
 	
 	<mvc:default-servlet-handler/>
 	

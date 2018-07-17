@@ -26,7 +26,16 @@
 	<sql id="Base_Column_List">
 		id,TEXT_NO,SUM,SINGLEORDOUBLE,REMARK,OPEN_DATE,NUM9,NUM8,NUM7,NUM6,NUM5,NUM4,NUM3,NUM2,NUM10,NUM1
 	</sql>
-
+	
+	<select id="queryBySum" resultMap="BaseResultMap">
+		select * from T_BEISAI_DATA where sum is null 
+	</select>
+	<select id="sumEachNum" resultType="com.amwang.biz.serverModel.entity.SumEachNum">
+		SELECT t.NUM1 num , count(*) con from T_BEISAI_DATA t group by t.NUM1 order by t.NUM1
+	</select>
+	<select id="sumAllCounts" resultType="decimal">
+		select count(*) from T_BEISAI_DATA 
+	</select>
 	<select id="queryMaxTextno" resultType="string">
 		select TEXT_NO from T_BEISAI_DATA ORDER BY id desc limit 1
 	</select>
@@ -149,4 +158,19 @@
 			</if>
 		</trim>
 	</insert>
+	<update id="updateRecord" >
+	  	update T_BEISAI_DATA
+	    <set >
+	      <if test="sum != null" >
+	        SUM = #{sum,jdbcType=VARCHAR},
+	      </if>
+	      <if test="bigOrSmall != null" >
+	        BIGORSMALL = #{bigOrSmall,jdbcType=VARCHAR},
+	      </if>
+	      <if test="singleOrDouble != null" >
+	        SINGLEORDOUBLE = #{singleOrDouble,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where TEXT_NO = #{textno,jdbcType=VARCHAR}
+  </update>
 </mapper>

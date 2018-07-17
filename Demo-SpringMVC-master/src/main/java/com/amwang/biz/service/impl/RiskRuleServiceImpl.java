@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.amwang.biz.model.entity.RiskRule;
+import com.amwang.biz.serverModel.entity.TbeisaiData;
 import com.amwang.biz.service.RiskRuleService;
 
 @Service
@@ -21,6 +22,11 @@ public class RiskRuleServiceImpl implements RiskRuleService {
 //		ruleInfo  = riskRuleDao.selectByRiskRuleId(riskRuleId);
 //		log.info("规则信息>>>>>>:{}",ruleInfo);
 		return ruleInfo;
+	}
+
+	public void updRecord(TbeisaiData record) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

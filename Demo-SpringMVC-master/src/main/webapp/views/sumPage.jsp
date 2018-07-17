@@ -15,9 +15,9 @@
 </script>
 </head>
 <body>
-	<input type="hidden" id="sum" value="${sum }"/>
+	<input type="text" id="sum" value="${ctxPath }"/>
 	<input type="hidden" id="list" value="${result }"/>
 <!-- 	产品交易量 -->
-	<div id="prdTrade" style="width: 70%;height:500px;"></div>
+	<div id="prdTrade" style="width: 30%;height:250px;"></div>
 </body>
 </html>

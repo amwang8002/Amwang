@@ -23,4 +23,8 @@ public class ScheduleTest extends AbstractSpringContextTestSupport {
 		schedulejob.getData();
 	}
 	
+	@Test
+	public void testUpd() {
+		service.updRecord();;
+	}
 }
