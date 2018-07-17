@@ -47,7 +47,7 @@ public class GetDataFromBeisai {
 				}
 				if (Pattern.compile("[0-9]*").matcher(attr).matches()) {
 					log.info("期数或总和>>>>>>{}",attr);
-					if (attr.length() == 2) {
+					if (attr.length() == 2 || attr.length() == 1) {
 						demo.setSum(attr);
 						if (Integer.valueOf(attr).compareTo(11) > 0) {
 							demo.setBigOrSmall("大");
