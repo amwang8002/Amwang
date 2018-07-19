@@ -36,12 +36,13 @@ $(function() {
 	$(function(){
 		var url = "/SpringMVC-Maven/showSum.htm";
 		$.ajax({
-			type : "POST",
+			type : "GET",
 			url : url,
 			dataType : "json",
 			data : {},
 //			contentType: "application/json; charset=utf-8",
 			success : function(result) {
+				alert(result);
 				alert(result.legend);
 				alert(result.category);
 				alert(result.series[0].data);
