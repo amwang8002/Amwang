@@ -6,9 +6,8 @@ import com.amwang.utils.MailSendUtils;
 
 public class SumDataSendMailConstants {
 
-	public static void sendEmail(String title,String content) {
+	public static void sendEmail(String mail,String title,String content) {
 		
-		String mail = "amwang8002@163.com,913275571@qq.com"; // 发送对象的邮箱  913275571@qq.com
 		
 		String [] mails = mail.split(",");
 		for (int i = 0; i < mails.length; i++) {
