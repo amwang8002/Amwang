@@ -1,4 +1,4 @@
-package com.amwang.common.utils;
+package com.amwang.utils;
 
 import java.io.IOException;
 import java.util.List;

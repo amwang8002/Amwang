@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.amwang.biz.serverModel.entity.TbeisaiData;
-import com.amwang.common.utils.JsonUtils;
+import com.amwang.utils.JsonUtils;
 
 public class GetDataFromBeisai {
 	protected final static Logger log = LoggerFactory.getLogger(GetDataFromBeisai.class);
@@ -31,6 +31,7 @@ public class GetDataFromBeisai {
 			log.error("请求失败：{}",e);
 			throw new IOException(e);
 		}
+		log.info("请求内容：{}",doc);
 		Elements elements = doc.getElementsByTag("td");// 找到所有a标签
 		for (Element element : elements) {
 			if (!StringUtils.isEmpty(element.text())) {

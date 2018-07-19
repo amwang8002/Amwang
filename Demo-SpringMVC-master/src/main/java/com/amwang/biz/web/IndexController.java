@@ -1,11 +1,14 @@
 package com.amwang.biz.web;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,10 +22,9 @@ import com.amwang.biz.model.entity.RiskRule;
 import com.amwang.biz.serverModel.entity.SumEachNum;
 import com.amwang.biz.service.MyserverGetDataService;
 import com.amwang.biz.service.RiskRuleService;
-import com.amwang.biz.service.SumDwTradeService;
 import com.amwang.common.MyServerPageModel;
-import com.amwang.common.utils.JsonUtils;
 import com.amwang.utils.Echarts;
+import com.amwang.utils.JsonUtils;
 import com.amwang.utils.Series;
 
 @Controller
@@ -34,9 +36,6 @@ public class IndexController {
 	@Autowired
 	private RiskRuleService riskRuleService;
 
-	@Autowired
-	private SumDwTradeService sumDwTradeService;
-	
 	@Autowired
 	private MyserverGetDataService dataService;
 
@@ -66,8 +65,10 @@ public class IndexController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "showSum")
-	public Echarts showNum1Rate(){
+	@RequestMapping(value = "showSum" ,produces = "application/json")
+	public void showNum1Rate(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out=response.getWriter();
 		log.info("请求汇总开始");
 		MyServerPageModel pageModel = dataService.sumEachNum();
 		List<SumEachNum> result = pageModel.getSumEachNums();
@@ -82,9 +83,11 @@ public class IndexController {
 		List<Series> series = new ArrayList<Series>();
 		series.add(new Series("出现概率", "bar", index));
 		Echarts echarts = new Echarts(legend, category, series);
-		
+
 		log.info("请求汇总结束:{}",JsonUtils.obj2JsonString(echarts));
-		
-		return echarts;
+		out.println(JsonUtils.obj2JsonString(echarts));
+		out.flush();
+		out.close();
+//		return echarts;
 	}
 }

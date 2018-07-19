@@ -14,8 +14,9 @@ import com.amwang.biz.serverModel.entity.SumEachNum;
 import com.amwang.biz.serverModel.entity.TbeisaiData;
 import com.amwang.biz.service.MyserverGetDataService;
 import com.amwang.common.MyServerPageModel;
-import com.amwang.common.utils.JsonUtils;
+import com.amwang.common.SumDataSendMailConstants;
 import com.amwang.utils.DateUtil;
+import com.amwang.utils.JsonUtils;
 
 @Service
 public class MyserverGetDataServiceImpl implements MyserverGetDataService {
@@ -96,5 +97,86 @@ public class MyserverGetDataServiceImpl implements MyserverGetDataService {
 		}
 		return count;
 	}
+
+
+	/**
+	 * 汇总每个名次
+	 */
+	public void sumNums(String queryDate) {
+		int min = 9;
+		String title = "北京赛车计划";
+		
+		log.info("汇总每个名次开始，汇总日期-当天：{}",queryDate);
+		List<TbeisaiData> result = tbeisaiDataDao.sumNums(queryDate);
+		
+		//定义一个二维数组 10行10列
+		String arr[][] = new String[10][10];
+		if (!CollectionUtils.isEmpty(result) && result.size() > 5) {
+			for (int i = 0; i < result.size(); i++) {
+				TbeisaiData record = result.get(i);
+				arr[0][i]  = record.getNum1(); 
+				arr[1][i]  = record.getNum2(); 
+				arr[2][i]  = record.getNum3(); 
+				arr[3][i]  = record.getNum4(); 
+				arr[4][i]  = record.getNum5(); 
+				arr[5][i]  = record.getNum6(); 
+				arr[6][i]  = record.getNum7(); 
+				arr[7][i]  = record.getNum8(); 
+				arr[8][i]  = record.getNum9(); 
+				arr[9][i]  = record.getNum10();
+			}
+			log.info("汇总结果：{}",JsonUtils.obj2JsonString(arr) );
+			int h = 1;
+			for (String[] strings : arr) {
+				int i = 0; //偶数
+				int f = 0; //奇数
+				int s = 0; //小
+				int b = 0; //大
+				for (String string : strings) {
+					int a = Integer.valueOf(string);
+					if (a%2 == 0) {
+						i++;
+					} else {
+						f++;
+					}
+					
+					if (i >= min) {
+						//全是偶数
+						String content = "<div>第"+h+"名:【 "+i+" 】个双</div><br/><hr/><div>建议买【单】</div>";
+						SumDataSendMailConstants.sendEmail(title, content);
+						log.info("邮件已发送");
+					}
+					if (f >= min) {
+						//全是奇数
+						String content = "<div>第"+h+"名:【 "+f+" 】个单</div><br/><hr/><div>建议买【双】</div>";
+						SumDataSendMailConstants.sendEmail(title, content);
+						log.info("邮件已发送");
+					}
+					
+					if (0 < a && a < 6) {
+						s++;
+					} else {
+						b++;
+					}
+					
+					if (s >= min) {
+						//全是小
+						String content = "<div>第"+h+"名:【 "+s+" 】个小</div><br/><hr/><div>建议买【大】</div>";
+						SumDataSendMailConstants.sendEmail(title, content);
+						log.info("邮件已发送");
+					} 
+					if (b >= min) {
+						//全是大
+						String content = "<div>第"+h+"名:【 "+b+" 】个大</div><br/><hr/><div>建议买【小】</div>";
+						SumDataSendMailConstants.sendEmail(title, content);
+						log.info("邮件已发送");
+					}
+				}
+				h++;
+			}
+		}
+		
+	}
+	
 
 }

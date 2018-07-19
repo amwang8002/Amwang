@@ -23,4 +23,7 @@ public interface TbeisaiDataDao {
 	int updateRecord(TbeisaiData record);
 	
 	List<TbeisaiData> queryBySum();
+	
+	//汇总每个名次
+	List<TbeisaiData> sumNums(@Param("queryDate")String textno);
 }

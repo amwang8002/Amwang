@@ -10,4 +10,6 @@ public interface MyserverGetDataService {
 	MyServerPageModel sumEachNum();
 	
 	int updRecord();
+	
+	void sumNums(String queryDate);
 }

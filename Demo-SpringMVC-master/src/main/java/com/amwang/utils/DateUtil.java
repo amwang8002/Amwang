@@ -254,7 +254,7 @@ public class DateUtil {
 	 * 
 	 * @param date 传入日期
 	 * @param item 加减的日期天数
-	 * @return
+	 * @return yyyy-MM-dd格式日期
 	 */
 	@SuppressWarnings("static-access")
 	public static String getFormatDate(String date, int item) {
