@@ -11,7 +11,7 @@
 	<context:component-scan base-package="com.amwang.biz" />
 
 	<!-- 配置读取外部配置文件 -->
-<!-- 	<context:property-placeholder location="classpath:env/jdbc.properties" /> -->
+	<context:property-placeholder location="classpath:env/jdbc.properties" />
 	
 	<!-- 代理datasource，使其能够显式获取preparedStatement的参数值 -->
 <!--     <bean id="proxyDataSource" class="org.jdbcdslog.ConnectionPoolDataSourceProxy"> -->
