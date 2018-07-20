@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cn.amwang</groupId>
-	<artifactId>DBF-ROOT</artifactId>
+	<artifactId>dbf-root</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
 	<name>SpringMVC-Maven Maven Webapp</name>
@@ -29,6 +29,8 @@
 		<!--quartz -->
 		<quartz.version>1.6.1</quartz.version>
 		<mysql.connector.version>5.1.31</mysql.connector.version>
+		<!--maven-junit -->
+		<maven.surefire.plugin.version>2.7.2</maven.surefire.plugin.version>
 	</properties>
 
 	<dependencies>
@@ -307,6 +309,28 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>DBF-ROOT</finalName>
+		<finalName>dbf-root</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven.surefire.plugin.version}</version>
+				<configuration>
+					<argLine>-Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m
+						-Dfile.encoding=UTF-8</argLine>
+					<forkMode>always</forkMode>
+<!-- 					打包时不运行测试类 -->
+					<skipTests>true</skipTests>
+					<useFile>false</useFile>
+					<includes>
+						<include>**/*Test.java</include>
+					</includes>
+					<excludes>
+						<exclude>**/Abstract*.java</exclude>
+					</excludes>
+					<junitArtifactName>junit:junit</junitArtifactName>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 </project>
