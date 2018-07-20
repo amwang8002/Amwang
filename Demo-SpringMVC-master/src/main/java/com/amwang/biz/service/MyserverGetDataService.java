@@ -11,5 +11,5 @@ public interface MyserverGetDataService {
 	
 	int updRecord();
 	
-	void sumNums(String queryDate);
+	void sumNums(String queryDate) throws IllegalAccessException;
 }

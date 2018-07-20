@@ -36,7 +36,11 @@ public class ScheduleJob {
 		
 		log.info("统计概率开始>>>>>{}",DateUtil.getCurrentTimeStamp());
 		String queryDate = DateUtil.getCurrentDate();
-		getDataService.sumNums(queryDate);
+		try {
+			getDataService.sumNums(queryDate);
+		} catch (IllegalAccessException e) {
+			log.error("概率统计异常：{}",e.getMessage());
+		}
 		log.info("统计概率结束>>>>>{}",DateUtil.getCurrentTimeStamp());
 	}
 	

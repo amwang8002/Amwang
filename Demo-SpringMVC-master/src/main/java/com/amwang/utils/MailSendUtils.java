@@ -64,6 +64,7 @@ public class MailSendUtils extends LogBase {
 		Transport.send(message);
 	}
 
+	@SuppressWarnings("static-access")
 	private static Message getMessage(MailInfo info) throws Exception {
 		final Properties p = System.getProperties();
 		p.setProperty("mail.smtp.host", info.getHost());
@@ -94,9 +95,13 @@ public class MailSendUtils extends LogBase {
 		// 接受消息的人
 		message.setReplyTo(InternetAddress.parse(info.getReplayAddress()));
 		// 消息的发送者
-		message.setFrom(new InternetAddress(p.getProperty("mail.smtp.user"), "系统计划通知"));
-		// 创建邮件的接收者地址，并设置到邮件消息中
-		message.setRecipient(Message.RecipientType.TO, new InternetAddress(info.getToAddress()));
+		message.setFrom(new InternetAddress(p.getProperty("mail.smtp.user"), info.getFormTitle()));
+		// 创建邮件的接收者地址，并设置到邮件消息中 ，多人收件
+		message.setRecipients(Message.RecipientType.TO, new InternetAddress().parse(info.getToAddress()));
+		// 创建邮件抄送接受地址，并设置到邮件消息中，多人收件
+//		message.setRecipients(Message.RecipientType.CC, new InternetAddress().parse(null));
+		// 创建邮件密送接受地址，并设置到邮件消息中，多人收件
+//		message.setRecipients(Message.RecipientType.BCC, new InternetAddress().parse(null));
 		// 消息发送的时间
 		message.setSentDate(new Date());
 

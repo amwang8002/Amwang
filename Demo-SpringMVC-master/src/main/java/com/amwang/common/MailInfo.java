@@ -16,6 +16,31 @@ public class MailInfo {
     private String subject ;
     //发送内容
     private String content ;
+    //发件人称呼
+    private String formTitle;
+    //抄送地址
+    private String ccAddress;
+    //密送地址
+    private String bccAddress;
+    
+	public String getCcAddress() {
+		return ccAddress;
+	}
+	public void setCcAddress(String ccAddress) {
+		this.ccAddress = ccAddress;
+	}
+	public String getBccAddress() {
+		return bccAddress;
+	}
+	public void setBccAddress(String bccAddress) {
+		this.bccAddress = bccAddress;
+	}
+	public String getFormTitle() {
+		return formTitle;
+	}
+	public void setFormTitle(String formTitle) {
+		this.formTitle = formTitle;
+	}
 	public String getHost() {
 		return host;
 	}

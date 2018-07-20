@@ -97,14 +97,14 @@ public class GetDataTest extends AbstractSpringContextTestSupport {
 					if (i >= min) {
 						// 如果全是偶数
 						String content = "<div>第"+textno+"期-第"+h+"名:<div>建议买【单】</div>目前【 "+i+" 个双】</div><br/><hr/>";
-						SumDataSendMailConstants.sendEmail(mail,title, content);
-						log.info("邮件已发送");
+//						SumDataSendMailConstants.sendEmail(mail,title, content);
+//						log.info("邮件已发送");
 					}
 					if (f >= min) {
 						//全是奇数
 						String content = "<div>第"+textno+"期-第"+h+"名:<div>建议买【双】</div>目前【 "+f+" 个单】</div><br/><hr/>";
-						SumDataSendMailConstants.sendEmail(mail,title, content);
-						log.info("邮件已发送");
+//						SumDataSendMailConstants.sendEmail(mail,title, content);
+//						log.info("邮件已发送");
 					}
 				}
 				
@@ -124,14 +124,14 @@ public class GetDataTest extends AbstractSpringContextTestSupport {
 					if (s >= min) {
 						//全是小
 						String content = "<div>第"+textno+"期-第"+h+"名:<div>建议买【大】</div>目前【 "+s+" 个小】</div><br/><hr/>";
-						SumDataSendMailConstants.sendEmail(mail,title, content);
-						log.info("邮件已发送");
+//						SumDataSendMailConstants.sendEmail(mail,title, content);
+//						log.info("邮件已发送");
 					} 
 					if (b >= min) {
 						//全是大
 						String content = "<div>第"+textno+"期-第"+h+"名:<div>建议买【小】</div>目前【 "+b+" 个大】</div><br/><hr/>";
-						SumDataSendMailConstants.sendEmail(mail,title, content);
-						log.info("邮件已发送");
+//						SumDataSendMailConstants.sendEmail(mail,title, content);
+//						log.info("邮件已发送");
 					}
 				}
 				h++;
@@ -141,8 +141,8 @@ public class GetDataTest extends AbstractSpringContextTestSupport {
 	
 	
 	@Test
-	public void addRecordTest() {
-		
+	public void sumNumsTest() throws IllegalAccessException {
+		service.sumNums(null);
 	}
 	
 }

@@ -5,6 +5,26 @@ public class TgetdataConfig {
 	private String mailTo;
 	
 	private int maxTime;
+	
+	private String mailTitle;
+	
+	private String mailSubject;
+
+	public String getMailTitle() {
+		return mailTitle;
+	}
+
+	public void setMailTitle(String mailTitle) {
+		this.mailTitle = mailTitle;
+	}
+
+	public String getMailSubject() {
+		return mailSubject;
+	}
+
+	public void setMailSubject(String mailSubject) {
+		this.mailSubject = mailSubject;
+	}
 
 	public String getMailTo() {
 		return mailTo;

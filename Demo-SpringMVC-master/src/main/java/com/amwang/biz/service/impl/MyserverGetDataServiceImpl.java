@@ -3,8 +3,6 @@ package com.amwang.biz.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -106,15 +104,20 @@ public class MyserverGetDataServiceImpl extends LogBase implements MyserverGetDa
 
 	/**
 	 * 汇总每个名次
+	 * @throws IllegalAccessException 
 	 */
-	public void sumNums(String queryDate) {
+	public void sumNums(String queryDate) throws IllegalAccessException {
 		getLogger().info("查询汇总配置开始：{}",DateUtil.getCurrentTimeStamp());
 		TgetdataConfig config = configDao.getConfig();
+		if (null == config) {
+			throw new IllegalAccessException("邮件配置计划为空");
+		}
 		int min = config.getMaxTime();
 		String mail = config.getMailTo();
+		String title = config.getMailTitle();
+		String subject = config.getMailSubject();
 		getLogger().info("查询结果：{}",JsonUtils.obj2JsonString(config));
 		
-		String title = "北京赛车计划";
 		
 		getLogger().info("汇总每个名次开始:");
 		List<TbeisaiData> result = tbeisaiDataDao.sumNums(min);
@@ -139,72 +142,96 @@ public class MyserverGetDataServiceImpl extends LogBase implements MyserverGetDa
 			int h = 1;
 			StringBuffer sb = new StringBuffer();
 			for (String[] strings : arr) {
-				int i = 0; //偶数
-				int f = 0; //奇数
-				int s = 0; //小
-				int b = 0; //大
 				/**
 				 * 单、双判断
 				 */
-				for (String string : strings) {
-					int a = Integer.valueOf(string);
-					if (a%2 == 0) {
-						i++;
-						f = 0; // 奇数置位0
-					} else {
-						f++;
-						i = 0; // 偶数置位0
-					}
-					
-					if (i >= min) {
-						// 如果全是偶数
-						String content = "<div>第"+textno+"期-第"+h+"名:建议买【单】</div>目前【 "+i+" 个双】</div><br/><hr/>";
-						getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,i,content);
-						sb.append(content);
-					}
-					if (f >= min) {
-						//全是奇数
-						String content = "<div>第"+textno+"期-第"+h+"名:建议买【双】</div>目前【 "+f+" 个单】</div><br/><hr/>";
-						getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,f,content);
-						sb.append(content);
-					}
-				}
+				checkSingleOrDouble(strings,textno,h,min,sb);
 				
 				/**
 				 * 大小判断
 				 */
-				for (String string : strings) {
-					int a = Integer.valueOf(string);
-					if (0 < a && a < 6) {
-						s++;
-						b = 0; //大置位0
-					} else {
-						b++;
-						s = 0; //小置位0
-					}
-					
-					if (s >= min) {
-						//全是小
-						String content = "<div>第"+textno+"期-第"+h+"名:建议买【大】</div>目前【 "+s+" 个小】</div><br/><hr/>";
-						getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,s,content);
-						sb.append(content);
-					} 
-					if (b >= min) {
-						//全是大
-						String content = "<div>第"+textno+"期-第"+h+"名:建议买【小】</div>目前【 "+b+" 个大】</div><br/><hr/>";
-						getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,b,content);
-						sb.append(content);
-					}
-				}
+				checkBigOrSmall(strings,textno,h,min,sb);
+				
 				h++;
 			}
 			if (!StringUtils.isEmpty(sb.toString())) {
-				SumDataSendMailConstants.sendEmail(mail,title, sb.toString());
+				SumDataSendMailConstants.sendEmail(mail,title, sb.toString(),subject);
 				getLogger().info("邮件已发送>>>>>>content:{}",sb.toString());
 			}
 		}
 		
 	}
 	
-
+	/**
+	 * 单双判断
+	 * @param strings 名称数组
+	 * @param textno 期数
+	 * @param min 最小触发次数
+	 * @param sb 邮件内容
+	 * @param h 名次
+	 * @return
+	 */
+	private StringBuffer checkSingleOrDouble(String[] strings,String textno,int h,int min,StringBuffer sb) {
+		int i = 0; //偶数
+		int f = 0; //奇数
+		/**
+		 * 单、双判断
+		 */
+		for (String string : strings) {
+			int a = Integer.valueOf(string);
+			if (a%2 == 0) {
+				i++;
+				f = 0; // 奇数置位0
+			} else {
+				f++;
+				i = 0; // 偶数置位0
+			}
+			
+			if (i >= min) {
+				// 如果全是偶数
+				String content = "<div>第"+textno+"期-第"+h+"名:建议买【单】</div>目前【 "+i+" 个双】</div><br/><hr/>";
+				getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,i,content);
+				sb.append(content);
+			}
+			if (f >= min) {
+				//全是奇数
+				String content = "<div>第"+textno+"期-第"+h+"名:建议买【双】</div>目前【 "+f+" 个单】</div><br/><hr/>";
+				getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,f,content);
+				sb.append(content);
+			}
+		}
+		return sb;
+	}
+	
+	private StringBuffer checkBigOrSmall(String[] strings,String textno,int h,int min,StringBuffer sb) {
+		int s = 0; //小
+		int b = 0; //大
+		/**
+		 * 大小判断
+		 */
+		for (String string : strings) {
+			int a = Integer.valueOf(string);
+			if (0 < a && a < 6) {
+				s++;
+				b = 0; //大置位0
+			} else {
+				b++;
+				s = 0; //小置位0
+			}
+			
+			if (s >= min) {
+				//全是小
+				String content = "<div>第"+textno+"期-第"+h+"名:建议买【大】</div>目前【 "+s+" 个小】</div><br/><hr/>";
+				getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,s,content);
+				sb.append(content);
+			} 
+			if (b >= min) {
+				//全是大
+				String content = "<div>第"+textno+"期-第"+h+"名:建议买【小】</div>目前【 "+b+" 个大】</div><br/><hr/>";
+				getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,b,content);
+				sb.append(content);
+			}
+		}
+		return sb;
+	}
 }

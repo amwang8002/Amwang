@@ -11,8 +11,10 @@ import com.amwang.biz.serverModel.dao.TbeisaiDataDao;
 import com.amwang.biz.serverModel.dao.TgetdataConfigDao;
 import com.amwang.biz.serverModel.entity.TbeisaiData;
 import com.amwang.biz.serverModel.entity.TgetdataConfig;
+import com.amwang.common.MailInfo;
 import com.amwang.common.SumDataSendMailConstants;
 import com.amwang.utils.JsonUtils;
+import com.amwang.utils.MailSendUtils;
 
 public class MailSendTest extends AbstractSpringContextTestSupport{
 	
@@ -24,11 +26,13 @@ public class MailSendTest extends AbstractSpringContextTestSupport{
 
 	@Test
 	public void sendMailTest() {
-		
-		String mail = "amwang8002@163.com";
-		String title = "test";
+		TgetdataConfig config = configDao.getConfig();
+		String mail = config.getMailTo();
+		String title = config.getMailTitle();
 		String content = "这是测试邮件";
-		SumDataSendMailConstants.sendEmail(mail, title, content);
+		String subject = config.getMailSubject();
+		
+		SumDataSendMailConstants.sendEmail(mail, title, content,subject);
 	}
 	
 	
@@ -83,16 +87,10 @@ public class MailSendTest extends AbstractSpringContextTestSupport{
 				if (i >= min) {
 					// 如果全是偶数
 					String content = "<div>第"+textno+"期-第"+h+"名:建议买【单】</div>目前【 "+i+" 个双】</div><br/><hr/>";
-//					getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,i,content);
-//					SumDataSendMailConstants.sendEmail(mail,title, content);
-//					getLogger().info("邮件已发送>>>>>>买单,{}",content);
 				}
 				if (f >= min) {
 					//全是奇数
 					String content = "<div>第"+textno+"期-第"+h+"名:建议买【双】</div>目前【 "+f+" 个单】</div><br/><hr/>";
-//					getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,f,content);
-//					SumDataSendMailConstants.sendEmail(mail,title, content);
-//					getLogger().info("邮件已发送>>>>>>买双,{}",content);
 				}
 			}
 			
@@ -112,16 +110,10 @@ public class MailSendTest extends AbstractSpringContextTestSupport{
 				if (s >= min) {
 					//全是小
 					String content = "<div>第"+textno+"期-第"+h+"名:建议买【大】</div>目前【 "+s+" 个小】</div><br/><hr/>";
-//					getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,s,content);
-//					SumDataSendMailConstants.sendEmail(mail,title, content);
-//					getLogger().info("邮件已发送>>>>>>买大,{}",content);
 				} 
 				if (b >= min) {
 					//全是大
 					String content = "<div>第"+textno+"期-第"+h+"名:建议买【小】</div>目前【 "+b+" 个大】</div><br/><hr/>";
-//					getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,b,content);
-//					SumDataSendMailConstants.sendEmail(mail,title, content);
-//					getLogger().info("邮件已发送>>>>>>买小,{}",content);
 				}
 			}
 			h++;
@@ -152,17 +144,11 @@ public class MailSendTest extends AbstractSpringContextTestSupport{
 			if (i >= min) {
 				// 如果全是偶数
 				String content = "<div>第"+textno+"期-第"+h+"名:建议买【单】</div>目前【 "+i+" 个双】</div><br/><hr/>";
-//				getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,i,content);
-//				SumDataSendMailConstants.sendEmail(mail,title, content);
-//				getLogger().info("邮件已发送>>>>>>买单,{}",content);
 				System.out.println(content);
 			}
 			if (f >= min) {
 				//全是奇数
 				String content = "<div>第"+textno+"期-第"+h+"名:建议买【双】</div>目前【 "+f+" 个单】</div><br/><hr/>";
-//				getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,f,content);
-//				SumDataSendMailConstants.sendEmail(mail,title, content);
-//				getLogger().info("邮件已发送>>>>>>买双,{}",content);
 				System.out.println(content);
 			}
 		}
@@ -183,22 +169,34 @@ public class MailSendTest extends AbstractSpringContextTestSupport{
 			if (s >= min) {
 				//全是小
 				String content = "<div>第"+textno+"期-第"+h+"名:建议买【大】</div>目前【 "+s+" 个小】</div><br/><hr/>";
-//				getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,s,content);
-//				SumDataSendMailConstants.sendEmail(mail,title, content);
-//				getLogger().info("邮件已发送>>>>>>买大,{}",content);
 				System.out.println(content);
 			} 
 			if (b >= min) {
 				//全是大
 				String content = "<div>第"+textno+"期-第"+h+"名:建议买【小】</div>目前【 "+b+" 个大】</div><br/><hr/>";
-//				getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,b,content);
-//				SumDataSendMailConstants.sendEmail(mail,title, content);
-//				getLogger().info("邮件已发送>>>>>>买小,{}",content);
 				System.out.println(content);
 			}
 		}
 		h++;
-//	}
+	}
+	
+	public static void main(String[] args) {
+		
+		String mail = "amwang8002@163.com,amwang8002@sina.com";
+		String title = "test";
+		String content = "这是测试邮件";
+		
+		String mString = mail;
+		MailInfo info = new MailInfo();
+		info.setToAddress(mString);
+		info.setSubject(title);
+		info.setContent(content);
+		try {
+			MailSendUtils.sendHtmlMail(info);
+		} catch (Exception e) {
+			System.out.print("'" + title + "'的邮件发送失败！");
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -26,7 +26,7 @@ public class ScheduleTest extends AbstractSpringContextTestSupport {
 	@Test
 	public void testGetDataTest() throws IOException{
 //		schedulejob.getData();
-		service.sumNums("2018-07-18");
+//		service.sumNums("2018-07-18");
 	}
 	
 	@Test
