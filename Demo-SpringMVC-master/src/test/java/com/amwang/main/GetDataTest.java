@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import com.amwang.biz.AbstractSpringContextTestSupport;
 import com.amwang.biz.serverModel.dao.TbeisaiDataDao;
@@ -29,13 +30,22 @@ public class GetDataTest extends AbstractSpringContextTestSupport {
 	private TgetdataConfigDao configDao;
 	
 	@Test
-	public void getConfig() {
-		TgetdataConfig result = configDao.getConfig();
-		System.out.println(JsonUtils.obj2JsonString(result));
+	public void getConfigTest() {
+//		TgetdataConfig result = configDao.getConfig();
+//		System.out.println(JsonUtils.obj2JsonString(result));
+		
+		StringBuffer sb = new StringBuffer();
+//		sb.append("lll");
+//		sb.append("222");
+		System.out.println(StringUtils.isEmpty(sb.toString()));
+		if (!StringUtils.isEmpty(sb.toString())) {
+			System.out.println("====");
+			System.out.println(sb.toString());
+		}
 	}
 	
 	@Test
-	public void testquerySum() {
+	public void testquerySumTest() {
 		log.info("查询汇总配置开始：{}",DateUtil.getCurrentTimeStamp());
 		TgetdataConfig config = configDao.getConfig();
 		int min = config.getMaxTime();
@@ -45,7 +55,7 @@ public class GetDataTest extends AbstractSpringContextTestSupport {
 		String title = "北京赛车计划";
 		String queryDate = "2018-07-18";
 		log.info("汇总每个名次开始，汇总日期-当天：{}",queryDate);
-		List<TbeisaiData> result = tbeisaiDataDao.sumNums(queryDate);
+		List<TbeisaiData> result = tbeisaiDataDao.sumNums(min);
 		
 		String textno = Integer.valueOf(result.get(0).getTextno())+1+"";
 		//定义一个二维数组 10行10列
@@ -129,5 +139,10 @@ public class GetDataTest extends AbstractSpringContextTestSupport {
 		}
 	}
 	
+	
+	@Test
+	public void addRecordTest() {
+		
+	}
 	
 }

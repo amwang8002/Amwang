@@ -22,7 +22,7 @@ public class ScheduleJob {
 	@Autowired
 	private MyserverGetDataService getDataService;
 
-	@Scheduled(cron = "0 3/5 9-23,0 * * ?")
+	@Scheduled(cron = "15 3/5 9-23,0 * * ?")
 	public void getData() throws IOException{
 		log.info("爬取数据开始时间："+DateUtil.getCurrentTimeStamp());
 		TbeisaiData data = GetDataFromBeisai.getUrlInfo("http://kj.13322.com/pk10_history_dtoday.html");

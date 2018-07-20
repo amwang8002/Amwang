@@ -25,5 +25,5 @@ public interface TbeisaiDataDao {
 	List<TbeisaiData> queryBySum();
 	
 	//汇总每个名次
-	List<TbeisaiData> sumNums(@Param("queryDate")String textno);
+	List<TbeisaiData> sumNums(@Param("min")int min);
 }

@@ -36,7 +36,7 @@
 		FROM T_BEISAI_DATA t
 		WHERE 1 = 1 
 		ORDER BY t.TEXT_NO desc
-		limit 10
+		limit #{min}
 	</select>
 	
 	<select id="queryBySum" resultMap="BaseResultMap">

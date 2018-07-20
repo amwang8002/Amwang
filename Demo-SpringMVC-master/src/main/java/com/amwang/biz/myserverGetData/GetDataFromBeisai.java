@@ -12,9 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.amwang.biz.serverModel.entity.TbeisaiData;
+import com.amwang.common.LogBase;
 import com.amwang.utils.JsonUtils;
 
-public class GetDataFromBeisai {
+public class GetDataFromBeisai extends LogBase {
 	protected final static Logger log = LoggerFactory.getLogger(GetDataFromBeisai.class);
 
 	public static TbeisaiData getUrlInfo(String httpurl) throws IOException {
@@ -26,7 +27,7 @@ public class GetDataFromBeisai {
 			doc = Jsoup.connect(httpurl)
 					.userAgent(
 							"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36")
-					.timeout(5000).post();
+					.timeout(10000).post();
 		} catch (IOException e) {
 			log.error("请求失败：{}",e);
 			throw new IOException(e);

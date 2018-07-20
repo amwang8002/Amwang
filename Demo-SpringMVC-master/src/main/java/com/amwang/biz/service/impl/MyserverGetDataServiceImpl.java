@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import com.amwang.biz.serverModel.dao.TbeisaiDataDao;
 import com.amwang.biz.serverModel.dao.TgetdataConfigDao;
@@ -15,15 +16,15 @@ import com.amwang.biz.serverModel.entity.SumEachNum;
 import com.amwang.biz.serverModel.entity.TbeisaiData;
 import com.amwang.biz.serverModel.entity.TgetdataConfig;
 import com.amwang.biz.service.MyserverGetDataService;
+import com.amwang.common.LogBase;
 import com.amwang.common.MyServerPageModel;
 import com.amwang.common.SumDataSendMailConstants;
 import com.amwang.utils.DateUtil;
 import com.amwang.utils.JsonUtils;
 
 @Service
-public class MyserverGetDataServiceImpl implements MyserverGetDataService {
+public class MyserverGetDataServiceImpl extends LogBase implements MyserverGetDataService {
 	
-	protected transient Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private TbeisaiDataDao tbeisaiDataDao;
@@ -31,31 +32,31 @@ public class MyserverGetDataServiceImpl implements MyserverGetDataService {
 	private TgetdataConfigDao configDao;
 	
 	public int addRecord(TbeisaiData record) {
-		log.info("新增数据开始>>>>>>start："+JsonUtils.obj2JsonString(record));
+		getLogger().info("新增数据开始>>>>>>start："+JsonUtils.obj2JsonString(record));
 		String textno = record.getTextno();
 		int result = 0;
 		if (textno.length() == 1) {
-			log.info("textno******before:{}",textno);
+			getLogger().info("textno******before:{}",textno);
 			String no = tbeisaiDataDao.queryMaxTextno();
 			textno = String.valueOf(Integer.valueOf(no)+1);
-			log.info("textno******after:{}",textno);
+			getLogger().info("textno******after:{}",textno);
 		}
 		int count = tbeisaiDataDao.queryRecordByTextNo(textno);
 		if (count == 0) {
 			record.setCreateTime(DateUtil.getCurrentTimeStamp());
 			result = tbeisaiDataDao.addRecord(record);
 		}
-		log.info("新增数据结束>>>>>>end：新增数量"+JsonUtils.obj2JsonString(result));
+		getLogger().info("新增数据结束>>>>>>end：新增数量"+JsonUtils.obj2JsonString(result));
 		return result;
 	}
 
 	
 	public MyServerPageModel sumEachNum() {
 		MyServerPageModel pageModel = new MyServerPageModel();
-		log.info("汇总数字1>>>>>>start");
+		getLogger().info("汇总数字1>>>>>>start");
 		BigDecimal multi = new BigDecimal(100);
 		BigDecimal counts = tbeisaiDataDao.sumAllCounts();
-		log.info("查询总记录数:{}",counts);
+		getLogger().info("查询总记录数:{}",counts);
 		List<SumEachNum> result = tbeisaiDataDao.sumEachNum();
 		for (SumEachNum sumEachNum : result) {
 			BigDecimal con = sumEachNum.getCon();
@@ -72,9 +73,9 @@ public class MyserverGetDataServiceImpl implements MyserverGetDataService {
 
 
 	public int updRecord() {
-		log.info("查询sum为空记录开始>>>>>>start:{}",DateUtil.getCurrentTimeStamp());
+		getLogger().info("查询sum为空记录开始>>>>>>start:{}",DateUtil.getCurrentTimeStamp());
 		List<TbeisaiData> result = tbeisaiDataDao.queryBySum();
-		log.info("查询sum为空记录条数：{}",result.size());
+		getLogger().info("查询sum为空记录条数：{}",result.size());
 		int count = 0;
 		if (!CollectionUtils.isEmpty(result)) {
 			for (TbeisaiData tbeisaiData : result) {
@@ -97,7 +98,7 @@ public class MyserverGetDataServiceImpl implements MyserverGetDataService {
 				int i = tbeisaiDataDao.updateRecord(tbeisaiData);
 				count += i;
 			}
-			log.info("sum记录数更新条数：{}",count);
+			getLogger().info("sum记录数更新条数：{}",count);
 		}
 		return count;
 	}
@@ -107,21 +108,21 @@ public class MyserverGetDataServiceImpl implements MyserverGetDataService {
 	 * 汇总每个名次
 	 */
 	public void sumNums(String queryDate) {
-		log.info("查询汇总配置开始：{}",DateUtil.getCurrentTimeStamp());
+		getLogger().info("查询汇总配置开始：{}",DateUtil.getCurrentTimeStamp());
 		TgetdataConfig config = configDao.getConfig();
 		int min = config.getMaxTime();
 		String mail = config.getMailTo();
-		log.info("查询结果：{}",JsonUtils.obj2JsonString(config));
+		getLogger().info("查询结果：{}",JsonUtils.obj2JsonString(config));
 		
 		String title = "北京赛车计划";
 		
-		log.info("汇总每个名次开始:");
-		List<TbeisaiData> result = tbeisaiDataDao.sumNums(queryDate);
+		getLogger().info("汇总每个名次开始:");
+		List<TbeisaiData> result = tbeisaiDataDao.sumNums(min);
 		String textno = Integer.valueOf(result.get(0).getTextno())+1+"";
 		//定义一个二维数组 10行10列
-		String arr[][] = new String[10][10];
+		String arr[][] = new String[10][min];
 		if (!CollectionUtils.isEmpty(result) && result.size() > 5) {
-			for (int i = 0; i < result.size(); i++) {
+			for (int i = 0; i < min ; i++) {
 				TbeisaiData record = result.get(i);
 				arr[0][i]  = record.getNum1(); 
 				arr[1][i]  = record.getNum2(); 
@@ -134,8 +135,9 @@ public class MyserverGetDataServiceImpl implements MyserverGetDataService {
 				arr[8][i]  = record.getNum9(); 
 				arr[9][i]  = record.getNum10();
 			}
-			log.info("汇总结果：{}",JsonUtils.obj2JsonString(arr) );
+			getLogger().info("汇总结果：{}",JsonUtils.obj2JsonString(arr) );
 			int h = 1;
+			StringBuffer sb = new StringBuffer();
 			for (String[] strings : arr) {
 				int i = 0; //偶数
 				int f = 0; //奇数
@@ -157,14 +159,14 @@ public class MyserverGetDataServiceImpl implements MyserverGetDataService {
 					if (i >= min) {
 						// 如果全是偶数
 						String content = "<div>第"+textno+"期-第"+h+"名:建议买【单】</div>目前【 "+i+" 个双】</div><br/><hr/>";
-						SumDataSendMailConstants.sendEmail(mail,title, content);
-						log.info("邮件已发送>>>>>>买单");
+						getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,i,content);
+						sb.append(content);
 					}
 					if (f >= min) {
 						//全是奇数
 						String content = "<div>第"+textno+"期-第"+h+"名:建议买【双】</div>目前【 "+f+" 个单】</div><br/><hr/>";
-						SumDataSendMailConstants.sendEmail(mail,title, content);
-						log.info("邮件已发送>>>>>>买双");
+						getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,f,content);
+						sb.append(content);
 					}
 				}
 				
@@ -184,17 +186,21 @@ public class MyserverGetDataServiceImpl implements MyserverGetDataService {
 					if (s >= min) {
 						//全是小
 						String content = "<div>第"+textno+"期-第"+h+"名:建议买【大】</div>目前【 "+s+" 个小】</div><br/><hr/>";
-						SumDataSendMailConstants.sendEmail(mail,title, content);
-						log.info("邮件已发送>>>>>>买大");
+						getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,s,content);
+						sb.append(content);
 					} 
 					if (b >= min) {
 						//全是大
 						String content = "<div>第"+textno+"期-第"+h+"名:建议买【小】</div>目前【 "+b+" 个大】</div><br/><hr/>";
-						SumDataSendMailConstants.sendEmail(mail,title, content);
-						log.info("邮件已发送>>>>>>买小");
+						getLogger().info(">>>>>>begin send email,期数:{},个数{},内容{}",textno,b,content);
+						sb.append(content);
 					}
 				}
 				h++;
+			}
+			if (!StringUtils.isEmpty(sb.toString())) {
+				SumDataSendMailConstants.sendEmail(mail,title, sb.toString());
+				getLogger().info("邮件已发送>>>>>>content:{}",sb.toString());
 			}
 		}
 		

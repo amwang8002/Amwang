@@ -24,14 +24,14 @@ public class ScheduleTest extends AbstractSpringContextTestSupport {
 	@Autowired
 	private TbeisaiDataDao dao;
 	@Test
-	public void testGetData() throws IOException{
+	public void testGetDataTest() throws IOException{
 //		schedulejob.getData();
 		service.sumNums("2018-07-18");
 	}
 	
 	@Test
-	public void testUpd() {
-		List<TbeisaiData> result = dao.sumNums(DateUtil.getCurrentDate());
+	public void testUpdTest() {
+		List<TbeisaiData> result = dao.sumNums(1);
 		String arr[][] = new String[10][10];
 		if (!CollectionUtils.isEmpty(result) && result.size() > 5) {
 			for (int i = 0; i < result.size(); i++) {
