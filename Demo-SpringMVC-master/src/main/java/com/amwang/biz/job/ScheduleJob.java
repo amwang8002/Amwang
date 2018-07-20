@@ -14,6 +14,11 @@ import com.amwang.biz.service.MyserverGetDataService;
 import com.amwang.utils.DateUtil;
 import com.amwang.utils.JsonUtils;
 
+/**
+ * 定时任务
+ * @author wangyao.m
+ *
+ */
 @Component
 public class ScheduleJob {
 	
