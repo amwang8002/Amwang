@@ -47,6 +47,10 @@ public class ScheduleJob {
 			log.error("概率统计异常：{}",e.getMessage());
 		}
 		log.info("统计概率结束>>>>>{}",DateUtil.getCurrentTimeStamp());
+		
+		log.info("统计每条大小单双开始>>>>>{}",DateUtil.getCurrentTimeStamp());
+		getDataService.sumBSDS();
+		log.info("统计每条大小单双结束>>>>>{}",DateUtil.getCurrentTimeStamp());
 	}
 	
 	@Scheduled(cron = "0 0 1 * * ?")

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amwang.biz.serverModel.dao.TSeqSumDataMapper">
+  <resultMap id="BaseResultMap" type="com.amwang.biz.serverModel.entity.TSeqSumData">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="TEXT_NO" jdbcType="VARCHAR" property="textNo" />
+    <result column="SEQ" jdbcType="VARCHAR" property="seq" />
+    <result column="BIG" jdbcType="VARCHAR" property="big" />
+    <result column="SMALL" jdbcType="VARCHAR" property="small" />
+    <result column="SINGLE" jdbcType="VARCHAR" property="single" />
+    <result column="DOUBLES" jdbcType="VARCHAR" property="doubles" />
+    <result column="CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
+    <result column="VALUE" jdbcType="VARCHAR" property="value" />
+    
+  </resultMap>
+  
+<!--   调用存储过程 -->
+  <select id="callProcedureOfDataSum" statementType="CALLABLE">
+		{call p_sum_result()}
+  </select>
+  <select id="queryByCondition" parameterType="com.amwang.biz.serverModel.entity.TSeqSumData" resultType = "int">
+  	select count(*) 
+  	from T_SEQ_SUM_DATA t
+  	where t.TEXT_NO = #{textNo,jdbcType=VARCHAR} 
+  	and t.SEQ = #{seq,jdbcType=VARCHAR} 
+  </select>
+  <insert id="insert" parameterType="com.amwang.biz.serverModel.entity.TSeqSumData">
+    insert into T_SEQ_SUM_DATA (id, TEXT_NO, SEQ, 
+      BIG, SMALL, SINGLE, 
+      DOUBLES, CREATE_TIME)
+    values (#{id,jdbcType=INTEGER}, #{textNo,jdbcType=VARCHAR}, #{seq,jdbcType=VARCHAR}, 
+      #{big,jdbcType=VARCHAR}, #{small,jdbcType=VARCHAR}, #{single,jdbcType=VARCHAR}, 
+      #{doubles,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.amwang.biz.serverModel.entity.TSeqSumData">
+    insert into T_SEQ_SUM_DATA
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="textNo != null">
+        TEXT_NO,
+      </if>
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="big != null">
+        BIG,
+      </if>
+      <if test="small != null">
+        SMALL,
+      </if>
+      <if test="single != null">
+        SINGLE,
+      </if>
+      <if test="doubles != null">
+        DOUBLES,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="value != null">
+        VALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="textNo != null">
+        #{textNo,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null">
+        #{seq,jdbcType=VARCHAR},
+      </if>
+      <if test="big != null">
+        #{big,jdbcType=VARCHAR},
+      </if>
+      <if test="small != null">
+        #{small,jdbcType=VARCHAR},
+      </if>
+      <if test="single != null">
+        #{single,jdbcType=VARCHAR},
+      </if>
+      <if test="doubles != null">
+        #{doubles,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

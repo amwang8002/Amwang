@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import com.amwang.biz.serverModel.dao.TSeqSumDataMapper;
 import com.amwang.biz.serverModel.dao.TbeisaiDataDao;
 import com.amwang.biz.serverModel.dao.TgetdataConfigDao;
 import com.amwang.biz.serverModel.entity.SumEachNum;
+import com.amwang.biz.serverModel.entity.TSeqSumData;
 import com.amwang.biz.serverModel.entity.TbeisaiData;
 import com.amwang.biz.serverModel.entity.TgetdataConfig;
 import com.amwang.biz.service.MyserverGetDataService;
@@ -28,6 +30,13 @@ public class MyserverGetDataServiceImpl extends LogBase implements MyserverGetDa
 	private TbeisaiDataDao tbeisaiDataDao;
 	@Autowired
 	private TgetdataConfigDao configDao;
+	@Autowired
+	private TSeqSumDataMapper sumDataMapper;
+	
+	private String big = "big";
+	private String small = "small";
+	private String single = "single";
+	private String dou = "dou";
 	
 	public int addRecord(TbeisaiData record) {
 		getLogger().info("新增数据开始>>>>>>start："+JsonUtils.obj2JsonString(record));
@@ -163,6 +172,66 @@ public class MyserverGetDataServiceImpl extends LogBase implements MyserverGetDa
 	}
 	
 	/**
+	 * 大小单双汇总
+	 */
+	public void sumBSDS() {
+		//查询所有记录
+		List<TbeisaiData> result = tbeisaiDataDao.queryList();
+		if (!CollectionUtils.isEmpty(result)) {
+			for (TbeisaiData record : result) {
+				String textNo = record.getTextno();
+				String num1   = record.getNum1(); 
+				addSumRecord(textNo, num1, "1");
+				String num2   = record.getNum2(); 
+				addSumRecord(textNo, num2, "2");
+				String num3   = record.getNum3(); 
+				addSumRecord(textNo, num3, "3");
+				String num4   = record.getNum4(); 
+				addSumRecord(textNo, num4, "4");
+				String num5   = record.getNum5(); 
+				addSumRecord(textNo, num5, "5");
+				String num6   = record.getNum6(); 
+				addSumRecord(textNo, num6, "6");
+				String num7   = record.getNum7(); 
+				addSumRecord(textNo, num7, "7");
+				String num8   = record.getNum8(); 
+				addSumRecord(textNo, num8, "8");
+				String num9   = record.getNum9(); 
+				addSumRecord(textNo, num9, "9");
+				String num10   = record.getNum10();
+				addSumRecord(textNo, num10, "10");
+			}
+			
+			//调用存储过程更新汇总表
+			sumDataMapper.callProcedureOfDataSum();
+		}
+	}
+	
+	private void addSumRecord(String textNo,String num,String seq) {
+		TSeqSumData record = new TSeqSumData();
+		record.setTextNo(textNo);
+		record.setSeq(seq);
+		record.setValue(num);
+		int result = sumDataMapper.queryByCondition(record);
+		if (result == 0) {
+			int a = Integer.valueOf(num);
+			if (a%2 == 0) {
+				record.setDoubles(dou);
+			}else {
+				record.setSingle(single);
+			}
+			if (0<a && a<6) {
+				record.setSmall(small);
+			} else {
+				record.setBig(big);
+			}
+			record.setCreateTime(DateUtil.getCurrentTimeStamp());
+			sumDataMapper.insertSelective(record);
+		}
+	}
+	
+	
+	/**
 	 * 单双判断
 	 * @param strings 名称数组
 	 * @param textno 期数
@@ -234,4 +303,6 @@ public class MyserverGetDataServiceImpl extends LogBase implements MyserverGetDa
 		}
 		return sb;
 	}
+
+
 }

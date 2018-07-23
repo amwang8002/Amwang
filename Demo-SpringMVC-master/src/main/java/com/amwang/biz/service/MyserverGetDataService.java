@@ -12,4 +12,6 @@ public interface MyserverGetDataService {
 	int updRecord();
 	
 	void sumNums(String queryDate) throws IllegalAccessException;
+	
+	void sumBSDS();
 }

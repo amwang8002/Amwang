@@ -30,6 +30,14 @@
 	<sql id="Base_Column_List">
 		id,TEXT_NO,SUM,SINGLEORDOUBLE,REMARK,OPEN_DATE,NUM9,NUM8,NUM7,NUM6,NUM5,NUM4,NUM3,NUM2,NUM10,NUM1
 	</sql>
+	
+	<select id="queryList" resultMap="BaseResultMap">
+		SELECT 
+			<include refid="Base_Column_List"/>
+		FROM T_BEISAI_DATA t
+		ORDER BY t.TEXT_NO desc
+		limit 2
+	</select>
 	<!-- 汇总每个名次 -->
 	<select id="sumNums" resultMap="BaseResultMap">
 		SELECT *

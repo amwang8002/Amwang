@@ -26,4 +26,6 @@ public interface TbeisaiDataDao {
 	
 	//汇总每个名次
 	List<TbeisaiData> sumNums(@Param("min")int min);
+	
+	List<TbeisaiData> queryList();
 }
