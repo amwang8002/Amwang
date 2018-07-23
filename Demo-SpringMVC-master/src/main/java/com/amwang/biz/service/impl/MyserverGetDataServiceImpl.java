@@ -127,9 +127,9 @@ public class MyserverGetDataServiceImpl extends LogBase implements MyserverGetDa
 		String subject = config.getMailSubject();
 		getLogger().info("查询结果：{}",JsonUtils.obj2JsonString(config));
 		
-		
 		getLogger().info("汇总每个名次开始:");
 		List<TbeisaiData> result = tbeisaiDataDao.sumNums(min);
+
 		String textno = Integer.valueOf(result.get(0).getTextno())+1+"";
 		//定义一个二维数组 10行10列
 		String arr[][] = new String[10][min];

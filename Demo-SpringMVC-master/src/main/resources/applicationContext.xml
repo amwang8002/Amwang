@@ -97,7 +97,7 @@
 	<!-- 事务扫描开始(开启@Tranctional) -->
 <!-- 	<tx:annotation-driven transaction-manager="txManager" /> -->
 	<tx:annotation-driven transaction-manager="txManagerMyserver" />
-
+ 
 </beans>
 <!--     <settings> -->
 <!--         <setting name="logImpl" value="STDOUT_LOGGING"/>   -->
