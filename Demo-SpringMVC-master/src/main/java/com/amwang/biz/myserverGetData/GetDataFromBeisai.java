@@ -69,6 +69,7 @@ public class GetDataFromBeisai extends LogBase {
 				}
 			}
 			Elements tabname = element.getElementsByTag("span");
+			log.info("数据内容：{}",tabname);
 			if (tabname.size() == 10) {
 				for (int j = 0; j < tabname.size(); j++) {
 					String value = tabname.get(j).attr("class");
