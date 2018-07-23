@@ -1,7 +1,5 @@
 package com.amwang.biz.serverModel.entity;
 
-import java.util.Date;
-
 public class TSeqSumData {
     private Integer id;
 
