@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amwang.biz.serverModel.dao.TSumResultMapper">
+  <resultMap id="BaseResultMap" type="com.amwang.biz.serverModel.entity.TSumResult">
+    <result column="TEXT_NO" jdbcType="VARCHAR" property="textNo" />
+    <result column="冠_大" jdbcType="VARCHAR" property="firstBig" />      
+    <result column="冠_小" jdbcType="VARCHAR" property="firstSmall" />    
+    <result column="冠_单" jdbcType="VARCHAR" property="firstSingle" />   
+    <result column="冠_双" jdbcType="VARCHAR" property="firstDouble" />   
+    <result column="亚_大" jdbcType="VARCHAR" property="secBig" />        
+    <result column="亚_小" jdbcType="VARCHAR" property="secSmall" />      
+    <result column="亚_单" jdbcType="VARCHAR" property="secSingle" />     
+    <result column="亚_双" jdbcType="VARCHAR" property="secDouble" />     
+    <result column="3_大"  jdbcType="VARCHAR" property="thirdBig" />      
+    <result column="3_小"  jdbcType="VARCHAR" property="thirdSmall" />    
+    <result column="3_单"  jdbcType="VARCHAR" property="thirdSingle" />   
+    <result column="3_双"  jdbcType="VARCHAR" property="thirdDouble" />   
+    <result column="4_大"  jdbcType="VARCHAR" property="forthBig" />      
+    <result column="4_小"  jdbcType="VARCHAR" property="forthSmall" />    
+    <result column="4_单"  jdbcType="VARCHAR" property="forthSingle" />   
+    <result column="4_双"  jdbcType="VARCHAR" property="forthDouble" />   
+    <result column="5_大"  jdbcType="VARCHAR" property="fifthBig" />      
+    <result column="5_小"  jdbcType="VARCHAR" property="fifthSmall" />    
+    <result column="5_单"  jdbcType="VARCHAR" property="fifthSingle" />   
+    <result column="5_双"  jdbcType="VARCHAR" property="fifthDouble" />   
+    <result column="6_大"  jdbcType="VARCHAR" property="sixthBig" />      
+    <result column="6_小"  jdbcType="VARCHAR" property="sixthSmall" />    
+    <result column="6_单"  jdbcType="VARCHAR" property="sixthSingle" />   
+    <result column="6_双"  jdbcType="VARCHAR" property="sixthDouble" />   
+    <result column="7_大"  jdbcType="VARCHAR" property="seventhBig" />    
+    <result column="7_小"  jdbcType="VARCHAR" property="seventhSmall" />  
+    <result column="7_单"  jdbcType="VARCHAR" property="seventhSingle" /> 
+    <result column="7_双"  jdbcType="VARCHAR" property="seventhDouble" /> 
+    <result column="8_大"  jdbcType="VARCHAR" property="eigthBig" />      
+    <result column="8_小"  jdbcType="VARCHAR" property="eigthSmall" />    
+    <result column="8_单"  jdbcType="VARCHAR" property="eigthSingle" />   
+    <result column="8_双"  jdbcType="VARCHAR" property="eigthDouble" />   
+    <result column="9_大"  jdbcType="VARCHAR" property="ninthBig" />      
+    <result column="9_小"  jdbcType="VARCHAR" property="ninthSmall" />    
+    <result column="9_单"  jdbcType="VARCHAR" property="ninthSingle" />   
+    <result column="9_双"  jdbcType="VARCHAR" property="ninthDouble" />   
+    <result column="10_大" jdbcType="VARCHAR" property="tenthBig" />      
+    <result column="10_小" jdbcType="VARCHAR" property="tenthSmall" />    
+    <result column="10_单" jdbcType="VARCHAR" property="tenthSingle" />   
+    <result column="10_双" jdbcType="VARCHAR" property="tenthDouble" />
+
+  </resultMap>
+  
+  <select id="queryByTextno" parameterType="string" resultType="int">
+  	select count(*)
+  	from t_sum_result t
+  	where t.TEXT_NO = #{textNo}
+  </select>
+</mapper>

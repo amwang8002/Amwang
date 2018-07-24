@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.amwang.biz.AbstractSpringContextTestSupport;
 import com.amwang.biz.serverModel.dao.TSeqSumDataMapper;
+import com.amwang.biz.serverModel.dao.TSumResultMapper;
 import com.amwang.biz.serverModel.entity.TSeqSumData;
 import com.amwang.biz.service.MyserverGetDataService;
 
@@ -14,6 +15,8 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	private MyserverGetDataService service;
 	@Autowired
 	private TSeqSumDataMapper sumDataDao;
+	@Autowired
+	private TSumResultMapper tSumResultMapper;
 	
 	@Test
 	public void addSumDataTest() {
@@ -28,5 +31,11 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 		record.setSeq("1");
 		int result = sumDataDao.queryByCondition(record);
 		System.out.println(result);
+	}
+	
+	@Test
+	public void testUpdSum() {
+		int count = tSumResultMapper.queryByTextno("69448");
+		System.out.println(count);
 	}
 }

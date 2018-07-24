@@ -9,6 +9,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import com.amwang.biz.serverModel.dao.TSeqSumDataMapper;
+import com.amwang.biz.serverModel.dao.TSumResultMapper;
 import com.amwang.biz.serverModel.dao.TbeisaiDataDao;
 import com.amwang.biz.serverModel.dao.TgetdataConfigDao;
 import com.amwang.biz.serverModel.entity.SumEachNum;
@@ -21,6 +22,7 @@ import com.amwang.common.MyServerPageModel;
 import com.amwang.common.SumDataSendMailConstants;
 import com.amwang.utils.DateUtil;
 import com.amwang.utils.JsonUtils;
+import com.mysql.jdbc.log.Log;
 
 @Service
 public class MyserverGetDataServiceImpl extends LogBase implements MyserverGetDataService {
@@ -32,6 +34,8 @@ public class MyserverGetDataServiceImpl extends LogBase implements MyserverGetDa
 	private TgetdataConfigDao configDao;
 	@Autowired
 	private TSeqSumDataMapper sumDataMapper;
+	@Autowired
+	private TSumResultMapper tSumResultMapper;
 	
 	private String big = "big";
 	private String small = "small";
@@ -200,10 +204,14 @@ public class MyserverGetDataServiceImpl extends LogBase implements MyserverGetDa
 				addSumRecord(textNo, num9, "9");
 				String num10   = record.getNum10();
 				addSumRecord(textNo, num10, "10");
+				int count = tSumResultMapper.queryByTextno(textNo);
+				if (count == 0) {
+					//调用存储过程更新汇总表
+					getLogger().info("调用存储过程执行每个名次汇总结果开始>>>>>>期数：{}",textNo);
+					sumDataMapper.callProcedureOfDataSum();
+					getLogger().info("调用存储过程更新每个名次汇总结果结束>>>>>>期数：{}",textNo);
+				}
 			}
-			
-			//调用存储过程更新汇总表
-			sumDataMapper.callProcedureOfDataSum();
 		}
 	}
 	
