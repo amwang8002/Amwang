@@ -45,7 +45,6 @@ $(function() {
 					option.legend.data = result.legend;
 					option.xAxis.data = result.category;
 					option.series[0].data = result.series[0].data;
-//					option.series[0].type = result.series[0].type;
 					option.series[0].name = result.series[0].name;
 
 					myChart.setOption(option);

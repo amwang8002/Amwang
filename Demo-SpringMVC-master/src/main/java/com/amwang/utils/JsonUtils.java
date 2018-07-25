@@ -7,11 +7,6 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-//import org.codehaus.jackson.JsonFactory;
-//import org.codehaus.jackson.JsonGenerator.Feature;
-//import org.codehaus.jackson.JsonParseException;
-//import org.codehaus.jackson.map.JsonMappingException;
-//import org.codehaus.jackson.map.ObjectMapper;
 
 import com.amwang.common.exception.SysRuntimeException;
 import com.fasterxml.jackson.core.JsonFactory;
