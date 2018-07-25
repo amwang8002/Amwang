@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -65,7 +66,7 @@ public class IndexController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "showSum" ,produces = "application/json")
+	@RequestMapping(value = "showSum" ,method={RequestMethod.POST,RequestMethod.GET})
 	public void showNum1Rate(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out=response.getWriter();
@@ -89,5 +90,13 @@ public class IndexController {
 		out.flush();
 		out.close();
 //		return echarts;
+	}
+	
+	@RequestMapping(value = "showAjaxPage")
+	public ModelAndView showAjax() {
+		ModelAndView mView = new ModelAndView();
+		
+		mView.setViewName("ajax");
+		return mView;
 	}
 }

@@ -9,14 +9,13 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="${ctxPath }/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="${ctxPath }/js/echarts.js"></script>
+<script type="text/javascript" src="${ctxPath }/js/themes/dark.js"></script>
 <script type="text/javascript" src="${ctxPath }/js/bar/demo-bar.js"></script>
 <script type="text/javascript">
 	var list = ${result};
 </script>
 </head>
 <body>
-	<input type="text" id="sum" value="${ctxPath }"/>
-	<input type="hidden" id="list" value="${result }"/>
 <!-- 	产品交易量 -->
 	<div id="prdTrade" style="width: 30%;height:250px;"></div>
 </body>

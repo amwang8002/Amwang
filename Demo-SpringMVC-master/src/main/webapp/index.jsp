@@ -15,5 +15,9 @@ ${ctxPath }<br>
 ${ctxPath }<br>
 	<button type="submit">产品交易汇总页面</button>
 </form>
+<form action="${ctxPath }/showAjaxPage.htm" method="post">
+${ctxPath }<br>
+	<button type="submit">ajax测试页面</button>
+</form>
 </body>
 </html>

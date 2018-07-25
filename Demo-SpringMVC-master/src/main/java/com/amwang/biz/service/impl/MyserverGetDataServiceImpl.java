@@ -22,7 +22,6 @@ import com.amwang.common.MyServerPageModel;
 import com.amwang.common.SumDataSendMailConstants;
 import com.amwang.utils.DateUtil;
 import com.amwang.utils.JsonUtils;
-import com.mysql.jdbc.log.Log;
 
 @Service
 public class MyserverGetDataServiceImpl extends LogBase implements MyserverGetDataService {
