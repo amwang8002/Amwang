@@ -28,4 +28,6 @@ public interface TbeisaiDataDao {
 	List<TbeisaiData> sumNums(@Param("min")int min);
 	
 	List<TbeisaiData> queryList();
+	
+	List<TbeisaiData> queryListTest(@Param("openDate")String openDate);
 }

@@ -10,4 +10,6 @@ public interface TSeqSumDataMapper {
     int queryByCondition(TSeqSumData record);
     
     void callProcedureOfDataSum();
+    
+    void callProcedureOfDataSumTest();
 }	

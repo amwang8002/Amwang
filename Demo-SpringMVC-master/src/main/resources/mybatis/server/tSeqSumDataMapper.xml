@@ -15,6 +15,9 @@
   </resultMap>
   
 <!--   调用存储过程 -->
+  <select id="callProcedureOfDataSumTest" statementType="CALLABLE">
+		{call P_SUM_RESULT_TEST()}
+  </select>
   <select id="callProcedureOfDataSum" statementType="CALLABLE">
 		{call P_SUM_RESULT()}
   </select>

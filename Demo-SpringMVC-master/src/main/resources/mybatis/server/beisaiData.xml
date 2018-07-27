@@ -31,6 +31,13 @@
 		id,TEXT_NO,SUM,SINGLEORDOUBLE,REMARK,OPEN_DATE,NUM9,NUM8,NUM7,NUM6,NUM5,NUM4,NUM3,NUM2,NUM10,NUM1
 	</sql>
 	
+	<select id="queryListTest" parameterType="string" resultMap="BaseResultMap">
+		SELECT 
+			<include refid="Base_Column_List"/>
+		FROM T_BEISAI_DATA t
+		where t.OPEN_DATE = #{openDate}
+		ORDER BY t.TEXT_NO desc
+	</select>
 	<select id="queryList" resultMap="BaseResultMap">
 		SELECT 
 			<include refid="Base_Column_List"/>
