@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amwang.biz.serverModel.dao.TPkHisManualMapper">
+  <resultMap id="BaseResultMap" type="com.amwang.biz.serverModel.entity.TPkHisManual">
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+    <result column="CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    ID, CONTENT, CREATE_TIME, REMARK
+  </sql>
+ 
+  <select id="queryList" resultMap="BaseResultMap">
+  	select
+  		<include refid="Base_Column_List"/>
+  	from T_PK_HIS_MANUAL
+  	limit 2
+  </select>
+  <select id="queryByContent" resultType="int">
+  	select count(*) 
+  	from T_PK_HIS_MANUAL t
+  	where t.CONTENT = #{content}
+  </select>
+  <insert id="insert" parameterType="com.amwang.biz.serverModel.entity.TPkHisManual">
+    insert into T_PK_HIS_MANUAL (ID, CONTENT, CREATE_TIME, 
+      REMARK)
+    values (#{id,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.amwang.biz.serverModel.entity.TPkHisManual">
+    insert into T_PK_HIS_MANUAL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+<!--       <if test="id != null"> -->
+<!--         ID, -->
+<!--       </if> -->
+      <if test="content != null">
+        CONTENT,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+<!--       <if test="id != null"> -->
+<!--         #{id,jdbcType=INTEGER}, -->
+<!--       </if> -->
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

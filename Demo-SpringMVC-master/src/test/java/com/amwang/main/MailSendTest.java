@@ -26,7 +26,7 @@ public class MailSendTest extends AbstractSpringContextTestSupport{
 
 	@Test
 	public void sendMailTest() {
-		TgetdataConfig config = configDao.getConfig();
+		TgetdataConfig config = configDao.getConfig("t1");
 		String mail = config.getMailTo();
 		String title = config.getMailTitle();
 		String content = "这是测试邮件";
@@ -39,7 +39,7 @@ public class MailSendTest extends AbstractSpringContextTestSupport{
 	@Test
 	public void sendMailddTest() {
 		
-		TgetdataConfig config = configDao.getConfig();
+		TgetdataConfig config = configDao.getConfig("t1");
 		int min = config.getMaxTime();
 		String mail = config.getMailTo();
 		

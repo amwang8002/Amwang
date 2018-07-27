@@ -31,23 +31,15 @@ public class GetDataTest extends AbstractSpringContextTestSupport {
 	
 	@Test
 	public void getConfigTest() {
-//		TgetdataConfig result = configDao.getConfig();
-//		System.out.println(JsonUtils.obj2JsonString(result));
+		TgetdataConfig result = configDao.getConfig("t2");
+		System.out.println(JsonUtils.obj2JsonString(result));
 		
-		StringBuffer sb = new StringBuffer();
-//		sb.append("lll");
-//		sb.append("222");
-		System.out.println(StringUtils.isEmpty(sb.toString()));
-		if (!StringUtils.isEmpty(sb.toString())) {
-			System.out.println("====");
-			System.out.println(sb.toString());
-		}
 	}
 	
 	@Test
 	public void testquerySumTest() {
 		log.info("查询汇总配置开始：{}",DateUtil.getCurrentTimeStamp());
-		TgetdataConfig config = configDao.getConfig();
+		TgetdataConfig config = configDao.getConfig("t1");
 		int min = config.getMaxTime();
 		String mail = config.getMailTo();
 		log.info("查询结果：{}",JsonUtils.obj2JsonString(config));

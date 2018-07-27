@@ -16,7 +16,7 @@
   
 <!--   调用存储过程 -->
   <select id="callProcedureOfDataSum" statementType="CALLABLE">
-		{call p_sum_result()}
+		{call P_SUM_RESULT()}
   </select>
   <select id="queryByCondition" parameterType="com.amwang.biz.serverModel.entity.TSeqSumData" resultType = "int">
   	select count(*) 

@@ -120,7 +120,7 @@ public class MyserverGetDataServiceImpl extends LogBase implements MyserverGetDa
 	 */
 	public void sumNums(String queryDate) throws IllegalAccessException {
 		getLogger().info("查询汇总配置开始：{}",DateUtil.getCurrentTimeStamp());
-		TgetdataConfig config = configDao.getConfig();
+		TgetdataConfig config = configDao.getConfig("t1");
 		if (null == config) {
 			throw new IllegalAccessException("邮件配置计划为空");
 		}
@@ -170,6 +170,7 @@ public class MyserverGetDataServiceImpl extends LogBase implements MyserverGetDa
 				SumDataSendMailConstants.sendEmail(mail,title, sb.toString(),subject);
 				getLogger().info("邮件已发送>>>>>>content:{}",sb.toString());
 			}
+			
 		}
 		
 	}
@@ -309,6 +310,15 @@ public class MyserverGetDataServiceImpl extends LogBase implements MyserverGetDa
 			}
 		}
 		return sb;
+	}
+
+
+	/**
+	 * 5码三期统计
+	 */
+	public void pkPlan5in3() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

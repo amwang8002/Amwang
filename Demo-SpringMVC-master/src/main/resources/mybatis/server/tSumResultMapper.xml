@@ -48,7 +48,7 @@
   
   <select id="queryByTextno" parameterType="string" resultType="int">
   	select count(*)
-  	from t_sum_result t
+  	from T_SUM_RESULT t
   	where t.TEXT_NO = #{textNo}
   </select>
 </mapper>

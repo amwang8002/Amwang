@@ -13,10 +13,12 @@
 		MAX_TIME,MAIL_TO,MAIL_TITLE,MAIL_SUBJECT
 	</sql>
 	<!-- 汇总每个名次 -->
-	<select id="getConfig" resultMap="BaseResultMap">
+	<select id="getConfig" parameterType="string" resultMap="BaseResultMap">
 		SELECT
 		<include refid="Base_Column_List"/>
-		FROM t_basic_config t
+		FROM T_BASIC_CONFIG t
+		where t.TYPE = #{type}
+		and t.STATUS = '1'
 	</select>
 	
 </mapper>

@@ -14,4 +14,6 @@ public interface MyserverGetDataService {
 	void sumNums(String queryDate) throws IllegalAccessException;
 	
 	void sumBSDS();
+	
+	void pkPlan5in3();
 }
