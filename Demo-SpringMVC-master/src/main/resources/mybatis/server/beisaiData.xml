@@ -45,7 +45,15 @@
 		ORDER BY t.TEXT_NO desc
 		limit 2
 	</select>
-	<!-- 汇总每个名次 -->
+	<!-- 汇总每个名次  测试 -->
+	<select id="sumNumsTest" resultMap="BaseResultMap">
+		SELECT *
+		FROM T_BEISAI_DATA_TEST t
+		WHERE 1 = 1 
+<!-- 		ORDER BY t.TEXT_NO desc -->
+		limit #{min}
+	</select>
+	<!-- 汇总每个名次  -->
 	<select id="sumNums" resultMap="BaseResultMap">
 		SELECT *
 		FROM T_BEISAI_DATA t

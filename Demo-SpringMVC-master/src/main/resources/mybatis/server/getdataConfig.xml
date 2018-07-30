@@ -7,10 +7,11 @@
 		<result column="MAX_TIME" property="maxTime" jdbcType="INTEGER" />
 		<result column="MAIL_TITLE" property="mailTitle" jdbcType="VARCHAR" />
 		<result column="MAIL_SUBJECT" property="mailSubject" jdbcType="VARCHAR" />
+		<result column="MAX_COLUMN" property="maxColumn" jdbcType="INTEGER" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		MAX_TIME,MAIL_TO,MAIL_TITLE,MAIL_SUBJECT
+		MAX_TIME,MAIL_TO,MAIL_TITLE,MAIL_SUBJECT,MAX_COLUMN
 	</sql>
 	<!-- 汇总每个名次 -->
 	<select id="getConfig" parameterType="string" resultMap="BaseResultMap">

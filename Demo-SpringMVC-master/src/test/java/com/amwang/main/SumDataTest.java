@@ -2,6 +2,7 @@ package com.amwang.main;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -63,7 +64,7 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	
 	@Test
 	public void getUrlTest() throws IOException {
-		List<TbeisaiData> result = getDataTest("http://kj.13322.com/pk10_history_d20180719.html");
+		List<TbeisaiData> result = getDataTest("http://kj.13322.com/pk10_history_dtoday.html");
 		for (TbeisaiData tbeisaiData : result) {
 			if (null != tbeisaiData) {
 				service.addRecord(tbeisaiData);
@@ -101,11 +102,10 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 						demos.add(demo);
 						flag = false;
 //						return demo;
-					} else {
-						demo = new TbeisaiData();
-						demo.setOpendate(attr);
-						flag = true;
-					}
+					} 
+					demo = new TbeisaiData();
+					demo.setOpendate(attr);
+					flag = true;
 				}
 				if (Pattern.compile("[0-9]*").matcher(attr).matches()) {
 					log.info("期数或总和>>>>>>{}",attr);
@@ -166,7 +166,7 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	
 	private void sumBDS() {
 		//查询所有记录
-		List<TbeisaiData> result = tbeisaiDao.queryListTest("2018-07-19");
+		List<TbeisaiData> result = tbeisaiDao.queryListTest("2018-07-30");
 		if (!CollectionUtils.isEmpty(result)) {
 			for (TbeisaiData record : result) {
 				String textNo = record.getTextno();

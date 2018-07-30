@@ -46,4 +46,16 @@ public class GetPkhistoryTest extends AbstractSpringContextTestSupport {
 			}
 		}
 	}
+	
+	@Test
+	public void testString() {
+		String aString = "695120-695122期 冠军【10,02,05,06,07】 695121期 06,02,04,09,03,10,01,07,08,05 挂2";
+		
+		if (aString.contains("中")) {
+			System.out.println(aString);
+		}
+		if (aString.contains("挂")) {
+			System.out.println("+++++挂++++++");
+		}
+	}
 }

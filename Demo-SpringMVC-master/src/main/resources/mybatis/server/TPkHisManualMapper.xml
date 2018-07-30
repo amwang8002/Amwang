@@ -16,6 +16,7 @@
   	select
   		<include refid="Base_Column_List"/>
   	from T_PK_HIS_MANUAL
+  	ORDER BY id DESC
   	limit 2
   </select>
   <select id="queryByContent" resultType="int">

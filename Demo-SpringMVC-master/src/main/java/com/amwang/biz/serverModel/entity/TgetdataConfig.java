@@ -9,6 +9,16 @@ public class TgetdataConfig {
 	private String mailTitle;
 	
 	private String mailSubject;
+	
+	private int maxColumn;
+
+	public int getMaxColumn() {
+		return maxColumn;
+	}
+
+	public void setMaxColumn(int maxColumn) {
+		this.maxColumn = maxColumn;
+	}
 
 	public String getMailTitle() {
 		return mailTitle;

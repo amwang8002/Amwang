@@ -27,6 +27,9 @@ public interface TbeisaiDataDao {
 	//汇总每个名次
 	List<TbeisaiData> sumNums(@Param("min")int min);
 	
+	//汇总每个名次 --测试用
+	List<TbeisaiData> sumNumsTest(@Param("min")int min);
+	
 	List<TbeisaiData> queryList();
 	
 	List<TbeisaiData> queryListTest(@Param("openDate")String openDate);
