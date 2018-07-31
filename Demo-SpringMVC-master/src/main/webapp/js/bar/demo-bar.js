@@ -39,7 +39,6 @@ $(function() {
 			data : {},
 			contentType: "application/x-www-form-urlencoded; charset=utf-8",
 			success : function(result) {
-				alert(result.legend);
 				
 				if (result) {
 					option.legend.data = result.legend;

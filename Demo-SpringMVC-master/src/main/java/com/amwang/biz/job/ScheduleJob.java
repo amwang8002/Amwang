@@ -80,14 +80,18 @@ public class ScheduleJob {
 		if (null != result) {
 			hisManualService.addRecord(result);
 		}
-		List<TPkHisManual> resultlist = hisManualService.queryList();
-		String con1 = resultlist.get(0).getContent();
-		boolean content1 = con1.contains("挂");
-		if (content1) {
-			String content ="当前时间："+ DateUtil.getCurrentTimeStamp() +"</br><div>彩专家</div>,第"+con1.substring(0, 15)+":挂";
-			//邮件通知
-			SumDataSendMailConstants.sendEmail(config.getMailTo(), config.getMailTitle(), content, config.getMailSubject());
+		String hour = DateUtil.getCurrentDateTimeStr("mm");
+		// 上午11点之后开始发送警告邮件
+		if (Integer.valueOf(hour) > 10) { 
+			List<TPkHisManual> resultlist = hisManualService.queryList();
+			String con1 = resultlist.get(0).getContent();
+			boolean content1 = con1.contains("挂");
+			if (content1) {
+				String content ="当前时间："+ DateUtil.getCurrentTimeStamp() +"</br><div>彩专家</div>,第"+con1.substring(0, 15)+":挂";
+				//邮件通知
+				SumDataSendMailConstants.sendEmail(config.getMailTo(), config.getMailTitle(), content, config.getMailSubject());
+			}
+			log.info("爬取彩专家结束：{}"+JsonUtils.obj2JsonString(DateUtil.getCurrentTimeStamp()));
 		}
-		log.info("爬取彩专家结束：{}"+JsonUtils.obj2JsonString(DateUtil.getCurrentTimeStamp()));
 	}
 }

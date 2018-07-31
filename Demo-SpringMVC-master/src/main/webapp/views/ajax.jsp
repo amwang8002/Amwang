@@ -9,15 +9,14 @@
 <script type="text/javascript" src="${ctxPath }/jquery/jquery.js"></script>
 <title>ajaxtext</title>
 <script type="text/javascript">
+	var url = "${ctxPath }/ab.htm";
     $(function(){
-    	alert("dd");
         //按钮单击时执行
         $("#testAjax").click(function(){
-        	alert('tishi');
         	 //Ajax调用处理
             $.ajax({
                type: "POST",
-               url: "/SpringMVC-Maven/ab.htm",
+               url: url,
                data: "name=garfield&age=18",
                contentType: "application/x-www-form-urlencoded; charset=utf-8",
                success: function(data){

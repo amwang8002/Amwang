@@ -11,9 +11,6 @@
 <script type="text/javascript" src="${ctxPath }/js/echarts.js"></script>
 <script type="text/javascript" src="${ctxPath }/js/themes/dark.js"></script>
 <script type="text/javascript" src="${ctxPath }/js/bar/demo-bar.js"></script>
-<script type="text/javascript">
-	var list = ${result};
-</script>
 </head>
 <body>
 <!-- 	产品交易量 -->

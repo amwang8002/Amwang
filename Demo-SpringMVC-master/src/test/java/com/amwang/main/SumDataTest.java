@@ -92,6 +92,7 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 		}
 		log.info("请求内容：{}",doc);
 		Elements elements = doc.getElementsByTag("td");// 找到所有a标签
+		int count = 0;
 		for (Element element : elements) {
 			if (!StringUtils.isEmpty(element.text())) {
 				log.info("数据信息：{}",element.text());
@@ -99,8 +100,12 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 				if (attr.contains("-")) {
 					if (flag) {
 						log.info("数据信息组装完毕：{}",JsonUtils.obj2JsonString(demo));
+						count++;
 						demos.add(demo);
 						flag = false;
+						if (count == 5) {
+							break;
+						}
 //						return demo;
 					} 
 					demo = new TbeisaiData();
@@ -166,7 +171,7 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	
 	private void sumBDS() {
 		//查询所有记录
-		List<TbeisaiData> result = tbeisaiDao.queryListTest("2018-07-30");
+		List<TbeisaiData> result = tbeisaiDao.queryListTest("2018-07-31");
 		if (!CollectionUtils.isEmpty(result)) {
 			for (TbeisaiData record : result) {
 				String textNo = record.getTextno();
