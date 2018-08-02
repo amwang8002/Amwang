@@ -15,11 +15,11 @@
   </resultMap>
   
 <!--   调用存储过程 -->
-  <select id="callProcedureOfDataSumTest" statementType="CALLABLE">
-		{call P_SUM_RESULT_TEST()}
+  <select id="callProcedureOfDataSumTest" parameterType="string" statementType="CALLABLE">
+		{call P_SUM_RESULT_TEST(#{textNo})}
   </select>
-  <select id="callProcedureOfDataSum" statementType="CALLABLE">
-		{call P_SUM_RESULT()}
+  <select id="callProcedureOfDataSum" parameterType="string" statementType="CALLABLE">
+		{call P_SUM_RESULT(#{textNo})}
   </select>
   <select id="queryByCondition" parameterType="com.amwang.biz.serverModel.entity.TSeqSumData" resultType = "int">
   	select count(*) 

@@ -42,6 +42,11 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	private String dou = "dou";
 	
 	@Test
+	public void callProcTest() {
+		sumDataDao.callProcedureOfDataSumTest("696199");
+	}
+	
+	@Test
 	public void addSumDataTest() {
 		service.sumBSDS();
 	}
@@ -64,7 +69,7 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	
 	@Test
 	public void getUrlTest() throws IOException {
-		int count = 12;
+		int count = 4;
 		String queryDate = "2018-08-02";
 		List<TbeisaiData> result = getDataTest("http://kj.13322.com/pk10_history_dtoday.html",count);
 		for (TbeisaiData tbeisaiData : result) {
@@ -206,13 +211,13 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 				String num10   = record.getNum10();
 				addSumRecord(textNo, num10, "10");
 				num++;
-//				int count = tSumResultMapper.queryByTextno(textNo);
-//				if (count == 0) {
-//					//调用存储过程更新汇总表
-////					getLogger().info("调用存储过程执行每个名次汇总结果开始>>>>>>期数：{}",textNo);
-//					sumDataDao.callProcedureOfDataSumTest();
-////					getLogger().info("调用存储过程更新每个名次汇总结果结束>>>>>>期数：{}",textNo);
-//				}
+				int resu = tSumResultMapper.queryByTextno(textNo);
+				if (resu == 0) {
+					//调用存储过程更新汇总表
+//					getLogger().info("调用存储过程执行每个名次汇总结果开始>>>>>>期数：{}",textNo);
+					sumDataDao.callProcedureOfDataSum(textNo);
+//					getLogger().info("调用存储过程更新每个名次汇总结果结束>>>>>>期数：{}",textNo);
+				}
 			}
 		}
 	}

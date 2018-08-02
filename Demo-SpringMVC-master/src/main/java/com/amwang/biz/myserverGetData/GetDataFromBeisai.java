@@ -52,11 +52,10 @@ public class GetDataFromBeisai extends LogBase {
 							break;
 						}
 //						return demo;
-					} else {
-						demo = new TbeisaiData();
-						demo.setOpendate(attr);
-						flag = true;
-					}
+					} 
+					demo = new TbeisaiData();
+					demo.setOpendate(attr);
+					flag = true;
 				}
 				if (Pattern.compile("[0-9]*").matcher(attr).matches()) {
 					log.info("期数或总和>>>>>>{}",attr);

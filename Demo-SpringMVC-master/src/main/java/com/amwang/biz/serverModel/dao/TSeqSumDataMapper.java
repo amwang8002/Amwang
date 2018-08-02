@@ -1,5 +1,7 @@
 package com.amwang.biz.serverModel.dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.amwang.biz.serverModel.entity.TSeqSumData;
 
 public interface TSeqSumDataMapper {
@@ -9,7 +11,7 @@ public interface TSeqSumDataMapper {
     
     int queryByCondition(TSeqSumData record);
     
-    void callProcedureOfDataSum();
+    void callProcedureOfDataSum(@Param("textNo")String textNo);
     
-    void callProcedureOfDataSumTest();
+    void callProcedureOfDataSumTest(@Param("textNo")String textNo);
 }	
