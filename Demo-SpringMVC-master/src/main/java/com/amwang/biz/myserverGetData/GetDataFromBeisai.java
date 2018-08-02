@@ -1,6 +1,8 @@
 package com.amwang.biz.myserverGetData;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
@@ -18,8 +20,9 @@ import com.amwang.utils.JsonUtils;
 public class GetDataFromBeisai extends LogBase {
 	protected final static Logger log = LoggerFactory.getLogger(GetDataFromBeisai.class);
 
-	public static TbeisaiData getUrlInfo(String httpurl) throws IOException {
-		TbeisaiData demo = new TbeisaiData();
+	public static List<TbeisaiData> getUrlInfo(String httpurl) throws IOException {
+		List<TbeisaiData> demos = new ArrayList<TbeisaiData>();
+		TbeisaiData demo =null;
 		boolean flag = false;
 		Document doc = null;
 		try {
@@ -34,6 +37,7 @@ public class GetDataFromBeisai extends LogBase {
 		}
 		log.info("请求内容：{}",doc);
 		Elements elements = doc.getElementsByTag("td");// 找到所有a标签
+		int num = 0;
 		for (Element element : elements) {
 			if (!StringUtils.isEmpty(element.text())) {
 				log.info("数据信息：{}",element.text());
@@ -41,8 +45,15 @@ public class GetDataFromBeisai extends LogBase {
 				if (attr.contains("-")) {
 					if (flag) {
 						log.info("数据信息组装完毕：{}",JsonUtils.obj2JsonString(demo));
-						return demo;
+						num++;
+						demos.add(demo);
+						flag = false;
+						if (num == 2) {
+							break;
+						}
+//						return demo;
 					} else {
+						demo = new TbeisaiData();
 						demo.setOpendate(attr);
 						flag = true;
 					}
@@ -101,7 +112,8 @@ public class GetDataFromBeisai extends LogBase {
 				}
 			}
 		}
-		return null;
+		demos.add(demo);
+		return demos;
 	}
 	
 }

@@ -41,12 +41,14 @@ public class ScheduleJob {
 	@Scheduled(cron = "10 3/5 9-23,0 * * ?")
 	public void getData() throws IOException{
 		log.info("爬取数据开始时间："+DateUtil.getCurrentTimeStamp());
-		TbeisaiData data = GetDataFromBeisai.getUrlInfo("http://kj.13322.com/pk10_history_dtoday.html");
-		log.info("请求service数据：{}"+JsonUtils.obj2JsonString(data));
-		if (null != data) {
-			getDataService.addRecord(data);
-		} else {
-			log.info("本次无更新：{}",DateUtil.getCurrentTimeStamp());
+		List<TbeisaiData> result = GetDataFromBeisai.getUrlInfo("http://kj.13322.com/pk10_history_dtoday.html");
+		log.info("请求service数据：{}"+JsonUtils.obj2JsonString(result));
+		for (TbeisaiData data : result) {
+			if (null != data) {
+				getDataService.addRecord(data);
+			} else {
+				log.info("本次无更新：{}",DateUtil.getCurrentTimeStamp());
+			}
 		}
 		log.info("爬取数据结束时间："+DateUtil.getCurrentTimeStamp());
 		
