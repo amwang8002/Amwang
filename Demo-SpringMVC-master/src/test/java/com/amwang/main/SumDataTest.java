@@ -64,7 +64,7 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	
 	@Test
 	public void getUrlTest() throws IOException {
-		int count = 20;
+		int count = 12;
 		String queryDate = "2018-08-02";
 		List<TbeisaiData> result = getDataTest("http://kj.13322.com/pk10_history_dtoday.html",count);
 		for (TbeisaiData tbeisaiData : result) {
@@ -101,7 +101,7 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 				String attr = element.text();
 				if (attr.contains("-")) {
 					if (flag) {
-						log.info("数据信息组装完毕：{}",JsonUtils.obj2JsonString(demo));
+						log.info("数据信息组装完毕： b {}",JsonUtils.obj2JsonString(demo));
 						num++;
 						demos.add(demo);
 						flag = false;
@@ -116,6 +116,9 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 				}
 				if (Pattern.compile("[0-9]*").matcher(attr).matches()) {
 					log.info("期数或总和>>>>>>{}",attr);
+					if (attr.equals("696098")) {
+						log.info("");
+					}
 					if (attr.length() == 2 || attr.length() == 1) {
 						demo.setSum(attr);
 						if (Integer.valueOf(attr).compareTo(11) > 0) {
@@ -168,6 +171,7 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 				}
 			}
 		}
+		demos.add(demo);
 		return demos;
 	}
 	
