@@ -80,7 +80,7 @@ public class ScheduleJob {
 		if (null != result) {
 			hisManualService.addRecord(result);
 		}
-		String hour = DateUtil.getCurrentDateTimeStr("mm");
+		String hour = DateUtil.getCurrentDateTimeStr("HH");
 		// 上午11点之后开始发送警告邮件
 		if (Integer.valueOf(hour) > 10) { 
 			List<TPkHisManual> resultlist = hisManualService.queryList();

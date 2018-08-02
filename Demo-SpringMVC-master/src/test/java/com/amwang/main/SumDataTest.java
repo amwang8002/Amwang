@@ -64,7 +64,9 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	
 	@Test
 	public void getUrlTest() throws IOException {
-		List<TbeisaiData> result = getDataTest("http://kj.13322.com/pk10_history_dtoday.html");
+		int count = 20;
+		String queryDate = "2018-08-02";
+		List<TbeisaiData> result = getDataTest("http://kj.13322.com/pk10_history_dtoday.html",count);
 		for (TbeisaiData tbeisaiData : result) {
 			if (null != tbeisaiData) {
 				service.addRecord(tbeisaiData);
@@ -72,10 +74,10 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 				log.info("本次无更新：{}",DateUtil.getCurrentTimeStamp());
 			}
 		}
-		sumBDS();
+		sumBDS(count,queryDate);
 	}
 	
-	private List<TbeisaiData> getDataTest(String httpurl) throws IOException {
+	private List<TbeisaiData> getDataTest(String httpurl , int count) throws IOException {
 		List<TbeisaiData> demos = new ArrayList<TbeisaiData>();
 		TbeisaiData demo = null;
 		boolean flag = false;
@@ -92,7 +94,7 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 		}
 		log.info("请求内容：{}",doc);
 		Elements elements = doc.getElementsByTag("td");// 找到所有a标签
-		int count = 0;
+		int num = 0;
 		for (Element element : elements) {
 			if (!StringUtils.isEmpty(element.text())) {
 				log.info("数据信息：{}",element.text());
@@ -100,10 +102,10 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 				if (attr.contains("-")) {
 					if (flag) {
 						log.info("数据信息组装完毕：{}",JsonUtils.obj2JsonString(demo));
-						count++;
+						num++;
 						demos.add(demo);
 						flag = false;
-						if (count == 5) {
+						if (count == num) {
 							break;
 						}
 //						return demo;
@@ -169,11 +171,15 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 		return demos;
 	}
 	
-	private void sumBDS() {
+	private void sumBDS(int count,String queredate) {
 		//查询所有记录
-		List<TbeisaiData> result = tbeisaiDao.queryListTest("2018-07-31");
+		List<TbeisaiData> result = tbeisaiDao.queryListTest(queredate);
+		int num = 0;
 		if (!CollectionUtils.isEmpty(result)) {
 			for (TbeisaiData record : result) {
+				if (num == count) {
+					break;
+				}
 				String textNo = record.getTextno();
 				String num1   = record.getNum1(); 
 				addSumRecord(textNo, num1, "1");
@@ -195,7 +201,8 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 				addSumRecord(textNo, num9, "9");
 				String num10   = record.getNum10();
 				addSumRecord(textNo, num10, "10");
-				int count = tSumResultMapper.queryByTextno(textNo);
+				num++;
+//				int count = tSumResultMapper.queryByTextno(textNo);
 //				if (count == 0) {
 //					//调用存储过程更新汇总表
 ////					getLogger().info("调用存储过程执行每个名次汇总结果开始>>>>>>期数：{}",textNo);
