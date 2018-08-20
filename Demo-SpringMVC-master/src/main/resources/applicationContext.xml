@@ -25,9 +25,12 @@
     <!-- ************************************************************************************************* -->
     <bean id="dataSourceMyserver" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://101.132.160.165:3306/amwang?useUnicode=true&amp;characterEncoding=UTF-8"></property>
-		<property name="username" value="dbf"></property>
-		<property name="password" value="dbf"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/amwang?useUnicode=true&amp;characterEncoding=UTF-8"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="mysql"></property>
+<!-- 		<property name="url" value="jdbc:mysql://101.132.160.165:3306/amwang?useUnicode=true&amp;characterEncoding=UTF-8"></property> -->
+<!-- 		<property name="username" value="dbf"></property> -->
+<!-- 		<property name="password" value="dbf"></property> -->
 	</bean>
 	<context:annotation-config /> <!-- 此行语句使得resource autowired 等四个注解可以使用 -->
 

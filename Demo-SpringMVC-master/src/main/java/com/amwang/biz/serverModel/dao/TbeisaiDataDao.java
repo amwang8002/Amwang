@@ -32,5 +32,5 @@ public interface TbeisaiDataDao {
 	
 	List<TbeisaiData> queryList();
 	
-	List<TbeisaiData> queryListTest(@Param("openDate")String openDate);
+	List<TbeisaiData> queryListTest(@Param("openDate")String openDate,@Param("textNos")List<String> textNos);
 }

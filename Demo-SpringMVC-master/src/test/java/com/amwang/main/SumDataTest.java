@@ -67,11 +67,25 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 		System.out.println(count);
 	}
 	
+	/**
+	 * 批量循环跑数据
+	 * @throws IOException
+	 */
 	@Test
-	public void getUrlTest() throws IOException {
-		int count = 4;
-		String queryDate = "2018-08-02";
-		List<TbeisaiData> result = getDataTest("http://kj.13322.com/pk10_history_dtoday.html",count);
+	public void testDate() throws IOException {
+		String date = "2018-07-03";
+		int count = 180;
+		
+		while (!date.equals("2018-06-03")) {
+			getUrlTestMore(count,date,date.replaceAll("-", ""));
+			date  = DateUtil.sourcePlusInterval(date, -1);
+		}
+	}
+	
+	private void getUrlTestMore(int count,String date1,String date2) throws IOException {
+		String queryDate = date1;
+		String url = "http://kj.13322.com/pk10_history_d"+date2+".html";
+		List<TbeisaiData> result = getDataTest(url,count);
 		for (TbeisaiData tbeisaiData : result) {
 			if (null != tbeisaiData) {
 				service.addRecord(tbeisaiData);
@@ -79,8 +93,27 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 				log.info("本次无更新：{}",DateUtil.getCurrentTimeStamp());
 			}
 		}
-		sumBDS(count,queryDate);
+		sumBDS(count,queryDate,null);
 	}
+	/**
+	 * 单独跑某一天数据
+	 * @throws IOException
+	 */
+	@Test
+	public void getUrlTest() throws IOException {
+		int count = 136;
+		String queryDate = "2018-08-17";
+		List<TbeisaiData> result = getDataTest("http://kj.13322.com/pk10_history_d20180817.html",count);
+		for (TbeisaiData tbeisaiData : result) {
+			if (null != tbeisaiData) {
+				service.addRecord(tbeisaiData);
+			} else {
+				log.info("本次无更新：{}",DateUtil.getCurrentTimeStamp());
+			}
+		}
+//		sumBDS(count,queryDate,null);
+	}
+	
 	
 	private List<TbeisaiData> getDataTest(String httpurl , int count) throws IOException {
 		List<TbeisaiData> demos = new ArrayList<TbeisaiData>();
@@ -180,9 +213,19 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 		return demos;
 	}
 	
-	private void sumBDS(int count,String queredate) {
+	/**
+	 * 汇总某一条记录到 t_sum_result表中
+	 */
+	@Test
+	public void testSum() {
+		List<String> textNo = new ArrayList<String>();
+		textNo.add("698827");
+		sumBDS(5, null, textNo);
+	}
+	
+	private void sumBDS(int count,String queredate,List<String> textNos) {
 		//查询所有记录
-		List<TbeisaiData> result = tbeisaiDao.queryListTest(queredate);
+		List<TbeisaiData> result = tbeisaiDao.queryListTest(queredate,textNos);
 		int num = 0;
 		if (!CollectionUtils.isEmpty(result)) {
 			for (TbeisaiData record : result) {

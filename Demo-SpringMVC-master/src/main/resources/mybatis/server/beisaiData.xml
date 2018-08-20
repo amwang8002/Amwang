@@ -35,7 +35,16 @@
 		SELECT 
 			<include refid="Base_Column_List"/>
 		FROM T_BEISAI_DATA t
-		where t.OPEN_DATE = #{openDate}
+		where 1=1
+		<if test="openDate != null">
+			and t.OPEN_DATE = #{openDate}
+		</if>
+		<if test="textNos != null">
+			and t.TEXT_NO in
+			<foreach item="item" index="index" collection="textNos" open="(" separator="," close=")">
+				#{item}  
+			</foreach>  
+		</if>
 		ORDER BY t.TEXT_NO desc
 	</select>
 	<select id="queryList" resultMap="BaseResultMap">

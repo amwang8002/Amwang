@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.amwang.biz.serverModel.dao.TSumResultMapper">
   <resultMap id="BaseResultMap" type="com.amwang.biz.serverModel.entity.TSumResult">
+    <result column="ID" jdbcType="INTEGER" property="id" />
     <result column="TEXT_NO" jdbcType="VARCHAR" property="textNo" />
+    <result column="OPEN_DATE" jdbcType="VARCHAR" property="openDate" />
     <result column="冠_大" jdbcType="VARCHAR" property="firstBig" />      
     <result column="冠_小" jdbcType="VARCHAR" property="firstSmall" />    
     <result column="冠_单" jdbcType="VARCHAR" property="firstSingle" />   
@@ -45,10 +47,23 @@
     <result column="10_双" jdbcType="VARCHAR" property="tenthDouble" />
 
   </resultMap>
+  <sql id="Base_Column_List">
+  	 ID, OPEN_DATE  ,TEXT_NO    ,冠_大 ,冠_小 ,冠_单 ,冠_双 ,亚_大 ,亚_小 ,亚_单 ,亚_双 ,3_大  ,3_小  ,3_单  ,3_双  ,4_大  ,
+  	 4_小  ,4_单  ,4_双  ,5_大  ,5_小  ,5_单  ,5_双  ,6_大  ,6_小  ,6_单  ,6_双  ,7_大  ,7_小  ,7_单  ,7_双  ,8_大  ,8_小  ,8_单  ,8_双  ,
+  	 9_大  ,9_小  ,9_单  ,9_双  ,10_大 ,10_小 ,10_单 ,10_双 ,CREATE_TIME
+  </sql>
   
   <select id="queryByTextno" parameterType="string" resultType="int">
   	select count(*)
   	from T_SUM_RESULT t
   	where t.TEXT_NO = #{textNo}
+  </select>
+  
+  <select id="queryByOpenDate"  parameterType="string" resultMap="BaseResultMap">
+  	SELECT 
+  		<include refid="Base_Column_List"/>
+	from T_SUM_RESULT t
+	WHERE 1=1
+	AND t.OPEN_DATE = #{openDate}
   </select>
 </mapper>

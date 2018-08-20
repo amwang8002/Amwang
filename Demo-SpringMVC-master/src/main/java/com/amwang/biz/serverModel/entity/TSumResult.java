@@ -1,7 +1,11 @@
 package com.amwang.biz.serverModel.entity;
 
 public class TSumResult {
+	private int id;
+	
     private String textNo;
+    
+    private String openDate;
 
     private String firstBig;
 
@@ -83,7 +87,23 @@ public class TSumResult {
 
     private String tenthDouble;
 
-    public String getTextNo() {
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getOpenDate() {
+		return openDate;
+	}
+
+	public void setOpenDate(String openDate) {
+		this.openDate = openDate;
+	}
+
+	public String getTextNo() {
         return textNo;
     }
 

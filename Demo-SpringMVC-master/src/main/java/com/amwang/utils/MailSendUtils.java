@@ -27,7 +27,7 @@ import com.sun.mail.util.MailSSLSocketFactory;
  */
 public class MailSendUtils extends LogBase {
 
-	private final static String host = "smtp.qq.com"; // sina的服务器
+	private final static String host = "smtp.qq.com"; // qq的服务器
 	private final static String formName = "783774470@qq.com";// 你的邮箱
 	private final static String password = "mftfjymlsuzybfhe"; // 授权码
 	private final static String replayAddress = "783774470@qq.com"; // 你的邮箱
@@ -35,7 +35,7 @@ public class MailSendUtils extends LogBase {
 	public static void sendHtmlMail(MailInfo info) throws Exception {
 		info.setHost(host);
 		info.setFormName(formName);
-		info.setFormPassword(password); // 网易邮箱的授权码~不一定是密码
+		info.setFormPassword(password); // 邮箱的授权码~不一定是密码
 		info.setReplayAddress(replayAddress);
 
 		Message message = getMessage(info);
@@ -55,7 +55,7 @@ public class MailSendUtils extends LogBase {
 
 		info.setHost(host);
 		info.setFormName(formName);
-		info.setFormPassword(password); // 网易邮箱的授权码~不一定是密码
+		info.setFormPassword(password); // 邮箱的授权码~不一定是密码
 		info.setReplayAddress(replayAddress);
 		Message message = getMessage(info);
 		// 消息发送的内容
