@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
@@ -72,13 +73,29 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	 * @throws IOException
 	 */
 	@Test
-	public void testDate() throws IOException {
-		String date = "2018-07-03";
+	public void testDate() {
+		String date = "2017-01-01";
 		int count = 180;
-		
-		while (!date.equals("2018-06-03")) {
-			getUrlTestMore(count,date,date.replaceAll("-", ""));
-			date  = DateUtil.sourcePlusInterval(date, -1);
+		boolean flag = false;
+		while (!date.equals("2016-07-01")) {
+			try {
+				getUrlTestMore(count,date,date.replaceAll("-", ""));
+			} catch (IOException e) {
+				flag = true;
+			}
+			// 每次抽完一天时间等待10秒
+			try {
+				TimeUnit.SECONDS.sleep(10L);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				System.err.println(e);
+			}
+			//连接异常重新获取链接
+			if (!flag) {
+				date  = DateUtil.sourcePlusInterval(date, -1);
+			} else {
+				flag = false;
+			}
 		}
 	}
 	
@@ -101,9 +118,9 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	 */
 	@Test
 	public void getUrlTest() throws IOException {
-		int count = 136;
-		String queryDate = "2018-08-17";
-		List<TbeisaiData> result = getDataTest("http://kj.13322.com/pk10_history_d20180817.html",count);
+		int count = 2;
+		String queryDate = "2018-08-21";
+		List<TbeisaiData> result = getDataTest("http://kj.13322.com/pk10_history_dtoday.html",count);
 		for (TbeisaiData tbeisaiData : result) {
 			if (null != tbeisaiData) {
 				service.addRecord(tbeisaiData);
@@ -111,7 +128,7 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 				log.info("本次无更新：{}",DateUtil.getCurrentTimeStamp());
 			}
 		}
-//		sumBDS(count,queryDate,null);
+		sumBDS(count,queryDate,null);
 	}
 	
 	
@@ -219,8 +236,19 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	@Test
 	public void testSum() {
 		List<String> textNo = new ArrayList<String>();
-		textNo.add("698827");
-		sumBDS(5, null, textNo);
+		textNo.add("699409");
+		textNo.add("699408");
+		textNo.add("699407");
+		textNo.add("699406");
+		textNo.add("699405");
+		textNo.add("699404");
+		textNo.add("699403");
+		textNo.add("699402");
+		textNo.add("699401");
+		textNo.add("699400");
+		textNo.add("699399");
+		textNo.add("699398");
+		sumBDS(13, null, textNo);
 	}
 	
 	private void sumBDS(int count,String queredate,List<String> textNos) {
