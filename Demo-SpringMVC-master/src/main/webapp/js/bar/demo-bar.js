@@ -31,7 +31,7 @@ $(function() {
 	myChart.setOption(option);
 	myChart.showLoading();
 	$(function() {
-		var url = "/SpringMVC-Maven/showSum.htm";
+		var url = "${ctxPath }/showSum.htm";
 		$.ajax({
 			type : "GET",
 			url : url,

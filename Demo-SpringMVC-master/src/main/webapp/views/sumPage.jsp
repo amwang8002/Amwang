@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>名次概率汇总</title>
 <script type="text/javascript" src="${ctxPath }/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="${ctxPath }/js/echarts.js"></script>
 <script type="text/javascript" src="${ctxPath }/js/themes/dark.js"></script>
