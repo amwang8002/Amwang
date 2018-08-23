@@ -11,4 +11,6 @@ public interface TSumResultMapper {
 	int queryByTextno(@Param("textNo")String textNo);
 	
 	List<TSumResult> queryByOpenDate(@Param("openDate")String openDate);
+	
+	List<TSumResult> queryByCondition();
 }

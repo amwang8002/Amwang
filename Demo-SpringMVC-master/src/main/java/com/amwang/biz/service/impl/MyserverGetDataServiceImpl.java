@@ -65,14 +65,14 @@ public class MyserverGetDataServiceImpl extends LogBase implements MyserverGetDa
 	public MyServerPageModel sumEachNum() {
 		MyServerPageModel pageModel = new MyServerPageModel();
 		getLogger().info("汇总数字1>>>>>>start");
-		BigDecimal multi = new BigDecimal(100);
+		BigDecimal multi = new BigDecimal(10000);
 		BigDecimal counts = tbeisaiDataDao.sumAllCounts();
 		getLogger().info("查询总记录数:{}",counts);
 		List<SumEachNum> result = tbeisaiDataDao.sumEachNum();
 		for (SumEachNum sumEachNum : result) {
 			BigDecimal con = sumEachNum.getCon();
 			if (con != null) {
-				sumEachNum.setRate(con.divide(counts,2,BigDecimal.ROUND_HALF_UP).multiply(multi));
+				sumEachNum.setRate(con.divide(counts,5,BigDecimal.ROUND_HALF_UP).multiply(multi));
 			}
 		}
 		pageModel.setCount(counts);
