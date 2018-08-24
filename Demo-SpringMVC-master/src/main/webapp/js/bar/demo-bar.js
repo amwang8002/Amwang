@@ -31,7 +31,7 @@ $(function() {
 	myChart.setOption(option);
 	myChart.showLoading();
 	$(function() {
-		var url = "${ctxPath }/showSum.htm";
+		var url = "showSum.htm";
 		$.ajax({
 			type : "GET",
 			url : url,

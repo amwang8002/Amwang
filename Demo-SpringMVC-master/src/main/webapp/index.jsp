@@ -7,16 +7,13 @@ String path = request.getContextPath();
 <c:set var="ctxPath" value="${pageContext.request.contextPath }"></c:set>
 <html>
 <body>
-<form action="${ctxPath }/index.htm" method="post">
-${ctxPath }<br>
+<form action="index.htm" method="post">
 	<button type="submit">跳转演示页面</button>
 </form>
-<form action="${ctxPath }/sumPrd.htm" method="post">
-${ctxPath }<br>
+<form action="sumPrd.htm" method="post">
 	<button type="submit">产品交易汇总页面</button>
 </form>
-<form action="${ctxPath }/showAjaxPage.htm" method="post">
-${ctxPath }<br>
+<form action="showAjaxPage.htm" method="post">
 	<button type="submit">ajax测试页面</button>
 </form>
 </body>
