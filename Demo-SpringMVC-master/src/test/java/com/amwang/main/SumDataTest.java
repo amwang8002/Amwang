@@ -74,10 +74,10 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	 */
 	@Test
 	public void testDate() {
-		String date = "2017-01-01";
+		String date = "2016-08-16";
 		int count = 180;
 		boolean flag = false;
-		while (!date.equals("2016-07-01")) {
+		while (!date.equals("2016-06-01")) {
 			try {
 				getUrlTestMore(count,date,date.replaceAll("-", ""));
 			} catch (IOException e) {
@@ -118,8 +118,8 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	 */
 	@Test
 	public void getUrlTest() throws IOException {
-		int count = 2;
-		String queryDate = "2018-08-21";
+		int count = 3;
+		String queryDate = "2018-08-24";
 		List<TbeisaiData> result = getDataTest("http://kj.13322.com/pk10_history_dtoday.html",count);
 		for (TbeisaiData tbeisaiData : result) {
 			if (null != tbeisaiData) {

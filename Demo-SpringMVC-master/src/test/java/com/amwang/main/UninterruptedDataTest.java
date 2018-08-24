@@ -23,9 +23,19 @@ public class UninterruptedDataTest extends AbstractSpringContextTestSupport {
 	
 	@Test
 	public void testArray() {
-		String seqs = "1,2,3,4,5,3,2,1,3";
-		String[] test = {"1","2","2","3"};
-		System.out.println(JsonUtils.obj2JsonString(test));
-		System.out.println(test);
+		int [][] sequences = new int[10][4];
+		int [] counts = new int [30];
+		
+		for (int i = 0; i < 5; i++) {
+			sequences[1][1]++;
+			sequences[2][1]++;
+			
+			counts[3]++;
+		}
+		
+		System.out.println(JsonUtils.obj2JsonString(sequences));
+		System.out.println(JsonUtils.obj2JsonString(counts).replace("[", "").replace("]", "").replace("\"", ""));
+		sequences[1][1] = 0;
+		System.out.println(JsonUtils.obj2JsonString(sequences));
 	}
 }

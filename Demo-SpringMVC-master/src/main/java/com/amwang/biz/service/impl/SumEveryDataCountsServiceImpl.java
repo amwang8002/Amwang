@@ -26,34 +26,36 @@ public class SumEveryDataCountsServiceImpl implements SumEveryDataCountsService 
 	public List<TDataUnterruptedCounts> queryByCondition() {
 		List<TDataUnterruptedCounts> resutList = new ArrayList<TDataUnterruptedCounts>();
 		TDataUnterruptedCounts resultCounts = new TDataUnterruptedCounts();
-		int firbcount = 0;
-		int LS4firbig = 0;
-		int LS3firbig = 0;
+		int [][] sequences = new int[10][4];  // [a][b] a:名次，b:大小单双
+		int [] counts = new int [30]; // [i] i的位置为连续次数，值为连续次数的次数
 		List<TSumResult> results = sumResultMapper.queryByCondition();
 		//遍历结果集
 		for (int i=0 ;i<results.size();i++) {
+			TSumResult tSumResult2 = null;
 			TSumResult tSumResult = results.get(i);
+			if (i != results.size()-1) {
+				tSumResult2 = results.get(i+1);
+			}
 			
 			String firstBig = tSumResult.getFirstBig();
+			String firstSam = tSumResult.getFirstSmall();
 			if (!StringUtils.isEmpty(firstBig)) {
-				firbcount++;
+				sequences[0][0]++; //冠军-大 的次数递增
 			} else {
-				firbcount = 0;  // 为空，归0
+				sequences[0][0] = 0;  // 为空，归0
 			}
 			
-			if (firbcount == 3 && StringUtils.isEmpty(results.get(i+1).getFirstBig())) {  //LS 4 count
+			if (sequences[0][0] == 3 && (i == results.size()-1 || StringUtils.isEmpty(tSumResult2.getFirstBig()))) {  //LS 3 count
 				// 连续次数+1
-				LS3firbig++;
+				counts[2]++;
 			}
-			if (firbcount == 4 && StringUtils.isEmpty(results.get(i+1).getFirstBig())) {  //LS 4 count
+			if (sequences[0][0] == 4 && (i == results.size()-1 || StringUtils.isEmpty(tSumResult2.getFirstBig()))) {  //LS 4 count
 				// 连续次数+1
-				LS4firbig++;
+				counts[3]++;
 			}
 		}
 		resultCounts.setPosition("FIRST");
 		resultCounts.setType("BIG");
-		resultCounts.setNum3(LS3firbig);
-		resultCounts.setNum4(LS4firbig);
 		resutList.add(resultCounts);
 		return resutList;
 	}
