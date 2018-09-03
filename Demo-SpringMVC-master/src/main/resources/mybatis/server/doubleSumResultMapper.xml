@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amwang.biz.serverModel.dao.DoubleSumResultMapper">
+  <resultMap id="BaseResultMap" type="com.amwang.biz.serverModel.entity.DoubleSumResult">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="text_id" jdbcType="VARCHAR" property="textId" />
+    <result column="area1" jdbcType="VARCHAR" property="area1" />
+    <result column="area2" jdbcType="VARCHAR" property="area2" />
+    <result column="area3" jdbcType="VARCHAR" property="area3" />
+    <result column="area4" jdbcType="VARCHAR" property="area4" />
+    <result column="area5" jdbcType="VARCHAR" property="area5" />
+    <result column="area6" jdbcType="VARCHAR" property="area6" />
+    <result column="area7" jdbcType="VARCHAR" property="area7" />
+    <result column="area8" jdbcType="VARCHAR" property="area8" />
+    <result column="area9" jdbcType="VARCHAR" property="area9" />
+    <result column="area10" jdbcType="VARCHAR" property="area10" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <insert id="insert" parameterType="com.amwang.biz.serverModel.entity.DoubleSumResult">
+    insert into double_sum_result (id, text_id, area1, 
+      area2, area3, area4, 
+      area5, area6, area7, 
+      area8, area9, area10, 
+      memo, gmt_create, gmt_modified
+      )
+    values (#{id,jdbcType=INTEGER}, #{textId,jdbcType=VARCHAR}, #{area1,jdbcType=VARCHAR}, 
+      #{area2,jdbcType=VARCHAR}, #{area3,jdbcType=VARCHAR}, #{area4,jdbcType=VARCHAR}, 
+      #{area5,jdbcType=VARCHAR}, #{area6,jdbcType=VARCHAR}, #{area7,jdbcType=VARCHAR}, 
+      #{area8,jdbcType=VARCHAR}, #{area9,jdbcType=VARCHAR}, #{area10,jdbcType=VARCHAR}, 
+      #{memo,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.amwang.biz.serverModel.entity.DoubleSumResult">
+    insert into double_sum_result
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="textId != null">
+        text_id,
+      </if>
+      <if test="area1 != null">
+        area1,
+      </if>
+      <if test="area2 != null">
+        area2,
+      </if>
+      <if test="area3 != null">
+        area3,
+      </if>
+      <if test="area4 != null">
+        area4,
+      </if>
+      <if test="area5 != null">
+        area5,
+      </if>
+      <if test="area6 != null">
+        area6,
+      </if>
+      <if test="area7 != null">
+        area7,
+      </if>
+      <if test="area8 != null">
+        area8,
+      </if>
+      <if test="area9 != null">
+        area9,
+      </if>
+      <if test="area10 != null">
+        area10,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="textId != null">
+        #{textId,jdbcType=VARCHAR},
+      </if>
+      <if test="area1 != null">
+        #{area1,jdbcType=VARCHAR},
+      </if>
+      <if test="area2 != null">
+        #{area2,jdbcType=VARCHAR},
+      </if>
+      <if test="area3 != null">
+        #{area3,jdbcType=VARCHAR},
+      </if>
+      <if test="area4 != null">
+        #{area4,jdbcType=VARCHAR},
+      </if>
+      <if test="area5 != null">
+        #{area5,jdbcType=VARCHAR},
+      </if>
+      <if test="area6 != null">
+        #{area6,jdbcType=VARCHAR},
+      </if>
+      <if test="area7 != null">
+        #{area7,jdbcType=VARCHAR},
+      </if>
+      <if test="area8 != null">
+        #{area8,jdbcType=VARCHAR},
+      </if>
+      <if test="area9 != null">
+        #{area9,jdbcType=VARCHAR},
+      </if>
+      <if test="area10 != null">
+        #{area10,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>
