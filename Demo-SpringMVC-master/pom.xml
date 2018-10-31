@@ -10,8 +10,7 @@
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>4.3.17.RELEASE</spring.version>
-<!-- 		<spring.version>3.2.16.RELEASE</spring.version> -->
+		<spring.version>3.2.16.RELEASE</spring.version>
 		<!-- mybatis -->
 		<mybatis.version>3.1.1</mybatis.version>
 		<mybatis.spring.version>1.2.0</mybatis.spring.version>
@@ -33,7 +32,7 @@
 		<!--maven-junit -->
 		<maven.surefire.plugin.version>2.7.2</maven.surefire.plugin.version>
 		<!-- fasterxml.jackson -->
-		<fasterxml.jackson.version>2.8.11</fasterxml.jackson.version>
+		<fasterxml.jackson.version>2.8.1</fasterxml.jackson.version>
 	</properties>
 
 	<dependencies>
