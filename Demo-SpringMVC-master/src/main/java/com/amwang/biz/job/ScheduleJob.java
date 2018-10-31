@@ -15,6 +15,7 @@ import com.amwang.biz.serverModel.dao.TgetdataConfigDao;
 import com.amwang.biz.serverModel.entity.TPkHisManual;
 import com.amwang.biz.serverModel.entity.TbeisaiData;
 import com.amwang.biz.serverModel.entity.TgetdataConfig;
+import com.amwang.biz.service.DoubleSumService;
 import com.amwang.biz.service.MyserverGetDataService;
 import com.amwang.biz.service.PkHisManualService;
 import com.amwang.common.SumDataSendMailConstants;
@@ -37,6 +38,8 @@ public class ScheduleJob {
 	private PkHisManualService hisManualService;
 	@Autowired
 	private TgetdataConfigDao configDao;
+	@Autowired
+	private DoubleSumService doubleSumService;
 	
 	@Scheduled(cron = "10 3/5 9-23 * * ?")
 	public void getData() throws IOException{
@@ -95,5 +98,10 @@ public class ScheduleJob {
 			}
 			log.info("爬取彩专家结束：{}"+JsonUtils.obj2JsonString(DateUtil.getCurrentTimeStamp()));
 		}
+	}
+	
+	@Scheduled(cron = "30 3/5 9-23 * * ?")
+	public void getDoubleSumResult() {
+		doubleSumService.insertDoubleSumResult();
 	}
 }

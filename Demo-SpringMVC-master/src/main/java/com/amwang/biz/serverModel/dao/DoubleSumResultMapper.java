@@ -7,7 +7,7 @@ public interface DoubleSumResultMapper {
 
     int insertSelective(DoubleSumResult record);
 
-    DoubleSumResult selectByTestid(String textId);
+    DoubleSumResult selectByTextid(String textId);
 
     int updateByPrimaryKeySelective(DoubleSumResult record);
 

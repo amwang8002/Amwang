@@ -39,7 +39,7 @@ public class DoubleSumServiceImpl extends LogBase implements DoubleSumService {
 		TbeisaiData data1 = result.get(0);
 		TbeisaiData data2 = result.get(1);
 		
-		DoubleSumResult recordResult = doubleSumResultDao.selectByTestid(data1.getTextno());
+		DoubleSumResult recordResult = doubleSumResultDao.selectByTextid(data1.getTextno());
 		if (null == recordResult) {
 			doubleSumResult.setTextId(data1.getTextno());
 			if (data1.getNum1().equals(data2.getNum1())) {

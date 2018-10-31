@@ -40,7 +40,7 @@ public class MyserverGetDataServiceImpl extends LogBase implements MyserverGetDa
 	private String small = "small";
 	private String single = "single";
 	private String dou = "dou";
-	private String flag = "0";  //连续重复标识位，默认：0，大||双：2，小||单：1
+	private String flag = "0";  //连续重复标识位，   默认：0     ，  大||双：2     ，   小||单：1
 	
 	public int addRecord(TbeisaiData record) {
 		getLogger().info("新增数据开始>>>>>>start："+JsonUtils.obj2JsonString(record));

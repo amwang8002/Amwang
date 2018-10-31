@@ -29,7 +29,7 @@ public class DebugController extends LogBase {
 	@Autowired
 	private MyserverGetDataService dataService;
 	
-	@RequestMapping(value = "/ab.htm",method={RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value = "/ab.htm",method={RequestMethod.POST,RequestMethod.GET},produces={"text/html;charset=UTF-8;","application/json;"})
 	@ResponseBody
 	public String requestAjax(HttpServletRequest request,HttpServletResponse response) {
 		MyServerPageModel pageModel = dataService.sumEachNum();

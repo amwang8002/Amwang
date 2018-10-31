@@ -32,6 +32,11 @@
       #{memo,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
       )
   </insert>
+  <select id="selectByTextid" parameterType="string" resultMap="BaseResultMap">
+  	select * 
+  	from double_sum_result t
+  	where t.text_id = #{textId,jdbcType=VARCHAR}
+  </select>
   <insert id="insertSelective" parameterType="com.amwang.biz.serverModel.entity.DoubleSumResult">
     insert into double_sum_result
     <trim prefix="(" suffix=")" suffixOverrides=",">
