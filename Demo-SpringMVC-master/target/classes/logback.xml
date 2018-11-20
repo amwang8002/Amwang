@@ -30,12 +30,29 @@
 			</Pattern>
 		</layout>
 	</appender>
+	<appender name="SCHEUDLEJOB-APPENDER"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder charset="UTF-8" />
+		<file>${logRoot}/job-service.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logRoot}/job-service.log.%d{yyyy-MM-dd}.%i.zip
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP" />
+			<maxFileSize>1GB</maxFileSize>
+			<maxHistory>60</maxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n
+			</Pattern>
+		</layout>
+	</appender>
 	<appender name="BEISAISERVICE-APPENDER"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<encoder charset="UTF-8" />
 		<file>${logRoot}/beisai-service.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${logRoot}/domainservice.log.%d{yyyy-MM-dd}.%i.zip
+			<fileNamePattern>${logRoot}/beisai-service.log.%d{yyyy-MM-dd}.%i.zip
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP" />
@@ -69,7 +86,7 @@
 		<encoder charset="UTF-8" />
 		<file>${logRoot}/biz.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${logRoot}/integration.log.%d{yyyy-MM-dd}.%i.zip
+			<fileNamePattern>${logRoot}/biz.log.%d{yyyy-MM-dd}.%i.zip
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP" />
@@ -102,21 +119,27 @@
 	</appender>
 
 	<!-- logger -->
+	<logger name="com.amwang.biz.job" additivity="true">
+		<level value="info" />
+<!-- 		<appender-ref ref="CONSOLE-APPENDER" /> -->
+		<appender-ref ref="SCHEUDLEJOB-APPENDER" />
+		<appender-ref ref="ERROR-APPENDER" />
+	</logger>
 	<logger name="com.amwang.biz.web" additivity="true">
 		<level value="info" />
-		<appender-ref ref="CONSOLE-APPENDER" />
+<!-- 		<appender-ref ref="CONSOLE-APPENDER" /> -->
 		<appender-ref ref="BIZ-APPENDER" />
 		<appender-ref ref="ERROR-APPENDER" />
 	</logger>
 	<logger name="com.amwang.biz.service" additivity="true">
 		<level value="info" />
-		<appender-ref ref="CONSOLE-APPENDER" />
+<!-- 		<appender-ref ref="CONSOLE-APPENDER" /> -->
 		<appender-ref ref="SERVICE-APPENDER" />
 		<appender-ref ref="ERROR-APPENDER" />
 	</logger>
 	<logger name="com.amwang.biz.myserverGetData" additivity="true">
 		<level value="info" />
-		<appender-ref ref="CONSOLE-APPENDER" />
+<!-- 		<appender-ref ref="CONSOLE-APPENDER" /> -->
 		<appender-ref ref="BEISAISERVICE-APPENDER" />
 		<appender-ref ref="ERROR-APPENDER" />
 	</logger>

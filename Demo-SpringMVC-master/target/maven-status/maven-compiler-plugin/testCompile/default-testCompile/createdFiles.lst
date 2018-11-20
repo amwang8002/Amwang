@@ -1,3 +1,12 @@
-com\amwang\main\AAA.class
-com\amwang\main\ScheduleTest.class
+com\amwang\main\SumDataFromResult.class
+com\amwang\main\SumDataTest.class
+com\amwang\main\UninterruptedDataTest.class
 com\amwang\biz\AbstractSpringContextTestSupport.class
+com\amwang\main\BBB$AA.class
+com\amwang\main\BBB.class
+com\amwang\main\MailSendTest.class
+com\amwang\main\GetDataTest.class
+com\amwang\temptest\JavaTest.class
+com\amwang\main\ScheduleTest.class
+com\amwang\main\GetPkhistoryTest.class
+com\amwang\main\MailSendWithfile.class
