@@ -77,7 +77,7 @@ public class ScheduleJob {
 		log.info("更新sum结束：,{},本次更新 {} 条",DateUtil.getCurrentTimeStamp(),count);
 	}
 	
-	@Scheduled(cron = "20 3/5 9-23 * * ?")
+//	@Scheduled(cron = "20 3/5 9-23 * * ?")
 	public void addDoctorCai() {
 		log.info("爬取彩专家开始时间："+DateUtil.getCurrentTimeStamp());
 		TgetdataConfig config = configDao.getConfig("t2");

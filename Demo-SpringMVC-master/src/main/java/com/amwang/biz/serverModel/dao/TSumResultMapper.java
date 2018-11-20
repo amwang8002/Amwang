@@ -13,4 +13,13 @@ public interface TSumResultMapper {
 	List<TSumResult> queryByOpenDate(@Param("openDate")String openDate);
 	
 	List<TSumResult> queryByCondition();
+	
+	/**
+	 * 查询记录中丢失数据
+	 * <p>Title: queryLostRecord</p>  
+	 * <p>Description: </p>  
+	 * @param openDate
+	 * @return
+	 */
+	List<String> queryLostRecord(@Param("startDate")String startDate,@Param("endDate")String endDate);
 }

@@ -2,6 +2,8 @@ package com.amwang.biz.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.amwang.biz.serverModel.entity.TDataUnterruptedCounts;
 
 /**
@@ -12,4 +14,6 @@ import com.amwang.biz.serverModel.entity.TDataUnterruptedCounts;
 public interface SumEveryDataCountsService {
 
 	List<TDataUnterruptedCounts> queryByCondition();
+	
+	List<String> queryLostRecord(String openDate,String endDate);
 }

@@ -1,8 +1,8 @@
 package com.amwang.common.exception;
 /**
  * @Description 系统(运行时)异常
- * @author caobin
- * @date 2012-11-19
+ * @author amwang
+ * @date 2018-01-19
  * @version 1.0
  */
 public class SysRuntimeException extends RuntimeException {
