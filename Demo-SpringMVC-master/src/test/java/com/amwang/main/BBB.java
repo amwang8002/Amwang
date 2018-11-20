@@ -6,12 +6,16 @@ public class BBB {
 
 	public static void main(String[] args) {
 		
-		System.out.println(0%2);
-		int j = 0;
-		for (int i = 0; i <10; i++) {
-			j++;
+		String[] product = new String[] {"1","1","0"};
+		int length = product.length;
+		int count = 0;
+		for (int i = 1; i < length; i++) {
+			String pro = product[i];
+			if (pro.equals("0")) {
+				count++;
+			}
 		}
-		System.err.println(j);
+		System.out.println(count);
 	}
 	
 	static class AA{

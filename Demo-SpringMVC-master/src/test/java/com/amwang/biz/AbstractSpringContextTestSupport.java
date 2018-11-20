@@ -22,19 +22,19 @@ public abstract class AbstractSpringContextTestSupport extends AbstractJUnit4Spr
 	
 	@Before
 	public void setUp(){
-		log.info("调用测试方法: {}", new Object[]{name.getMethodName()});
+		log.info("调用测试方法开始>>>>>>start: {}", new Object[]{name.getMethodName()});
 	}
 	
 	@After
 	public void tearDown(){
-		//TODO ...
+		log.info("调用测试方法结束>>>>>>end: {}", new Object[]{name.getMethodName()});
 	}
 	
 	public void logObject(Object obj) {
 		if (obj == null) {
-			log.debug("select null object");
+			log.info("select null object");
 		} else {
-			log.debug(">>>>>>>>>>>>>>>>>>>>>>>" + ReflectionToStringBuilder.toString(obj));
+			log.info(">>>>>>>>>>>>>>>>>>>>>>>" + ReflectionToStringBuilder.toString(obj));
 		}
 	}
 }

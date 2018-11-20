@@ -64,8 +64,14 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	
 	@Test
 	public void testUpdSum() {
-		int count = tSumResultMapper.queryByTextno("69448");
-		System.out.println(count);
+//		int count = tSumResultMapper.queryByTextno("69448");
+//		System.out.println(count);
+		Runtime runtime = Runtime.getRuntime();
+		try {
+			runtime.exec("shutdown.exe -s -t 40");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	
 	/**
@@ -74,10 +80,10 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	 */
 	@Test
 	public void testDate() {
-		String date = "2016-08-16";
+		String date = "2018-09-27";
 		int count = 180;
 		boolean flag = false;
-		while (!date.equals("2016-06-01")) {
+		while (!date.equals("2018-09-25")) {
 			try {
 				getUrlTestMore(count,date,date.replaceAll("-", ""));
 			} catch (IOException e) {
@@ -97,6 +103,13 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 				flag = false;
 			}
 		}
+		System.out.println("运行结束");
+//		Runtime runtime = Runtime.getRuntime();
+//		try {
+//			runtime.exec("shutdown.exe -s -t 40");
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
 	}
 	
 	private void getUrlTestMore(int count,String date1,String date2) throws IOException {
@@ -110,7 +123,7 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 				log.info("本次无更新：{}",DateUtil.getCurrentTimeStamp());
 			}
 		}
-		sumBDS(count,queryDate,null);
+//		sumBDS(count,queryDate,null);
 	}
 	/**
 	 * 单独跑某一天数据
@@ -118,9 +131,9 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	 */
 	@Test
 	public void getUrlTest() throws IOException {
-		int count = 3;
-		String queryDate = "2018-08-24";
-		List<TbeisaiData> result = getDataTest("http://kj.13322.com/pk10_history_dtoday.html",count);
+		int count = 179;
+		String queryDate = "2018-09-25";
+		List<TbeisaiData> result = getDataTest("http://kj.13322.com/pk10_history_d20180927.html",count);
 		for (TbeisaiData tbeisaiData : result) {
 			if (null != tbeisaiData) {
 				service.addRecord(tbeisaiData);
@@ -128,7 +141,7 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 				log.info("本次无更新：{}",DateUtil.getCurrentTimeStamp());
 			}
 		}
-		sumBDS(count,queryDate,null);
+//		sumBDS(count,queryDate,null);
 	}
 	
 	
@@ -236,19 +249,11 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	@Test
 	public void testSum() {
 		List<String> textNo = new ArrayList<String>();
-		textNo.add("699409");
-		textNo.add("699408");
-		textNo.add("699407");
-		textNo.add("699406");
-		textNo.add("699405");
-		textNo.add("699404");
-		textNo.add("699403");
-		textNo.add("699402");
-		textNo.add("699401");
-		textNo.add("699400");
-		textNo.add("699399");
-		textNo.add("699398");
-		sumBDS(13, null, textNo);
+		textNo.add("706637");
+		textNo.add("706600");
+		textNo.add("706592");
+		textNo.add("706492");
+		sumBDS(5, null, textNo);
 	}
 	
 	private void sumBDS(int count,String queredate,List<String> textNos) {

@@ -16,8 +16,8 @@ public class SumDataFromResult extends AbstractSpringContextTestSupport {
 	
 	@Test
 	public void testresult() {
-		List<TSumResult> results = tSumResultMapper.queryByOpenDate("");
+		List<TSumResult> results = tSumResultMapper.queryByOpenDate("2018-10-09");
 		System.out.println(results.size());
-		System.err.println(JsonUtils.list2JsonString(results));
+		System.out.println(JsonUtils.list2JsonString(results));
 	}
 }
