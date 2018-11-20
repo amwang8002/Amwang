@@ -60,4 +60,16 @@ public class SumEveryDataCountsServiceImpl implements SumEveryDataCountsService 
 		return resutList;
 	}
 
+	/**
+	 * 查询统计记录中丢失数据
+	 * <p>Title: queryLostRecord</p>  
+	 * <p>Description: </p>  
+	 * @param openDate
+	 * @return  
+	 */
+	@Override
+	public List<String> queryLostRecord(String openDate,String endDate) {
+		return sumResultMapper.queryLostRecord(openDate,endDate);
+	}
+
 }

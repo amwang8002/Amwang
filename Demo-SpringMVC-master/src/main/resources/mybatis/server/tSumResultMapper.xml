@@ -77,4 +77,17 @@
 	WHERE 1=1
 	AND t.OPEN_DATE = #{openDate}
   </select>
+  
+  <select id="queryLostRecord" parameterType="string" resultType="string">
+  	SELECT t.TEXT_NO
+		from T_BEISAI_DATA t
+		where t.TEXT_NO not in (
+			SELECT r.TEXT_NO
+			from T_SUM_RESULT r
+			where r.open_date &gt; #{startDate} and r.open_date &lt;= #{endDate}
+		)
+		and t.open_date like &gt; #{startDate} and t.open_date &lt;= #{endDate}
+		ORDER BY t.TEXT_NO desc;
+  	
+  </select>
 </mapper>

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
-  <classPathEntry location="E:\lib\mysql-connector-java-8.0.11.jar"/>
+  <classPathEntry location="E:/ojdbc/mysql-connector-java-8.0.11.jar"/>
   <context id="context1" >
   	<commentGenerator>
-  		<property name="suppressAllComments" value="true"/><!-- 取消生成的注释信息 -->
+  		<property name="suppressAllComments" value="true"/><!-- 取消生成的注释信息  /SpringMVC-Maven/src/main/java -->
   	</commentGenerator>
     <jdbcConnection
     	driverClass="com.mysql.jdbc.Driver"
-    	connectionURL="jdbc:mysql://101.132.160.165:3306/amwang?characterEncoding=utf-8"
+    	connectionURL="jdbc:mysql://localhost:3306/amwang?characterEncoding=utf-8"
     	userId="root" password="mysql" />
-    <javaModelGenerator targetPackage="com.amwang.getdata" targetProject="mypro/src/main/java"/>
-    <sqlMapGenerator targetPackage="mybatis.mappers" targetProject="mypro/src/main/resources" />
-   <javaClientGenerator targetPackage="com.amwang.getdata" type="XMLMAPPER" targetProject="mypro/src/main/java"/>
-    <table schema="amwang" tableName="T_BEISAI_DATA"
+    <javaModelGenerator targetPackage="com.amwang.biz.model.entity" targetProject="SpringMVC-Maven/src/main/java"/>
+    <sqlMapGenerator targetPackage="mybatis.server" targetProject="SpringMVC-Maven/src/main/resources" />
+   <javaClientGenerator targetPackage="com.amwang.biz.model.dao" type="XMLMAPPER" targetProject="SpringMVC-Maven/src/main/java"/>
+    <table schema="amwang" tableName="tb_menu"
     	enableCountByExample="false" enableUpdateByExample="false"
     	enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
     <!-- <columnOverride column="???" property="???" /> -->

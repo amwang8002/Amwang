@@ -1,5 +1,11 @@
 package com.amwang.common;
 
+
+/**
+ * 邮件发送实体信息
+ * @author wangyao.m
+ *
+ */
 public class MailInfo {
 
 	//邮箱服务器 如smtp.163.com

@@ -23,6 +23,7 @@ import com.amwang.biz.serverModel.dao.TbeisaiDataDao;
 import com.amwang.biz.serverModel.entity.TSeqSumData;
 import com.amwang.biz.serverModel.entity.TbeisaiData;
 import com.amwang.biz.service.MyserverGetDataService;
+import com.amwang.biz.service.SumEveryDataCountsService;
 import com.amwang.utils.DateUtil;
 import com.amwang.utils.JsonUtils;
 
@@ -30,6 +31,8 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 
 	@Autowired
 	private MyserverGetDataService service;
+	@Autowired
+	private SumEveryDataCountsService sumDailyService;
 	@Autowired
 	private TSeqSumDataMapper sumDataDao;
 	@Autowired
@@ -80,30 +83,34 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	 */
 	@Test
 	public void testDate() {
-		String date = "2018-09-27";
+		String startDate = "2018-11-20";
+		String endDate = "2018-10-01";
 		int count = 180;
 		boolean flag = false;
-		while (!date.equals("2018-09-25")) {
+		while (!startDate.equals(endDate)) {
 			try {
-				getUrlTestMore(count,date,date.replaceAll("-", ""));
+				getUrlTestMore(count,startDate,startDate.replaceAll("-", ""));
 			} catch (IOException e) {
 				flag = true;
 			}
-			// 每次抽完一天时间等待10秒
+			// 每次抽完一天时间等待2秒
 			try {
-				TimeUnit.SECONDS.sleep(10L);
+				TimeUnit.SECONDS.sleep(2L);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				System.err.println(e);
 			}
 			//连接异常重新获取链接
 			if (!flag) {
-				date  = DateUtil.sourcePlusInterval(date, -1);
+				startDate  = DateUtil.sourcePlusInterval(startDate, -1);
 			} else {
 				flag = false;
 			}
 		}
-		System.out.println("运行结束");
+		// 汇总丢失数据
+		sumLostRecord(endDate,startDate);
+		
+		// 运行结束执行命令
 //		Runtime runtime = Runtime.getRuntime();
 //		try {
 //			runtime.exec("shutdown.exe -s -t 40");
@@ -123,7 +130,6 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 				log.info("本次无更新：{}",DateUtil.getCurrentTimeStamp());
 			}
 		}
-//		sumBDS(count,queryDate,null);
 	}
 	/**
 	 * 单独跑某一天数据
@@ -141,7 +147,7 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 				log.info("本次无更新：{}",DateUtil.getCurrentTimeStamp());
 			}
 		}
-//		sumBDS(count,queryDate,null);
+		sumLostRecord(DateUtil.sourcePlusInterval(queryDate, -1), queryDate);
 	}
 	
 	
@@ -176,7 +182,6 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 						if (count == num) {
 							break;
 						}
-//						return demo;
 					} 
 					demo = new TbeisaiData();
 					demo.setOpendate(attr);
@@ -247,13 +252,12 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	 * 汇总某一条记录到 t_sum_result表中
 	 */
 	@Test
-	public void testSum() {
-		List<String> textNo = new ArrayList<String>();
-		textNo.add("706637");
-		textNo.add("706600");
-		textNo.add("706592");
-		textNo.add("706492");
-		sumBDS(5, null, textNo);
+	public void sumLostRecord(String sDate,String eDate) {
+		// 查询日期 ，可模糊查询
+		sDate = "2018-10-01";
+		eDate = "2018-11-20";
+		List<String> lostRecords = sumDailyService.queryLostRecord(sDate,eDate);
+//		sumBDS(lostRecords.size()+1, null, lostRecords);
 	}
 	
 	private void sumBDS(int count,String queredate,List<String> textNos) {
