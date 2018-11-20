@@ -86,8 +86,8 @@
 			from T_SUM_RESULT r
 			where r.open_date &gt; #{startDate} and r.open_date &lt;= #{endDate}
 		)
-		and t.open_date like &gt; #{startDate} and t.open_date &lt;= #{endDate}
-		ORDER BY t.TEXT_NO desc;
+		and t.open_date &gt; #{startDate} and t.open_date &lt;= #{endDate}
+		ORDER BY t.TEXT_NO desc
   	
   </select>
 </mapper>
