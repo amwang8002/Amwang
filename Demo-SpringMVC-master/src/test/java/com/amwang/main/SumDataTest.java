@@ -116,7 +116,6 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	}
 	
 	private void getUrlTestMore(int count,String date1,String date2) throws IOException {
-		String queryDate = date1;
 		String url = "http://kj.13322.com/pk10_history_d"+date2+".html";
 		List<TbeisaiData> result = getDataTest(url,count);
 		for (TbeisaiData tbeisaiData : result) {
