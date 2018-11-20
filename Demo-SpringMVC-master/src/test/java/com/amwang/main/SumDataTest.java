@@ -2,7 +2,6 @@ package com.amwang.main;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
@@ -95,7 +94,6 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 			try {
 				TimeUnit.SECONDS.sleep(2L);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				System.err.println(e);
 			}
 			//连接异常重新获取链接
@@ -249,13 +247,9 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	/**
 	 * 汇总某一条记录到 t_sum_result表中
 	 */
-	@Test
-	public void sumLostRecord(String sDate,String eDate) {
-		// 查询日期 ，可模糊查询
-		sDate = "2018-10-01";
-		eDate = "2018-11-20";
+	private void sumLostRecord(String sDate,String eDate) {
 		List<String> lostRecords = sumDailyService.queryLostRecord(sDate,eDate);
-//		sumBDS(lostRecords.size()+1, null, lostRecords);
+		sumBDS(lostRecords.size()+1, null, lostRecords);
 	}
 	
 	private void sumBDS(int count,String queredate,List<String> textNos) {
