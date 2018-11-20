@@ -67,8 +67,6 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	
 	@Test
 	public void testUpdSum() {
-//		int count = tSumResultMapper.queryByTextno("69448");
-//		System.out.println(count);
 		Runtime runtime = Runtime.getRuntime();
 		try {
 			runtime.exec("shutdown.exe -s -t 40");
