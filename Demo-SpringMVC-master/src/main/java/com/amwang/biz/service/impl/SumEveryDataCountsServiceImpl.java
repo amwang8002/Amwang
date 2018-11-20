@@ -67,7 +67,6 @@ public class SumEveryDataCountsServiceImpl implements SumEveryDataCountsService 
 	 * @param openDate
 	 * @return  
 	 */
-	@Override
 	public List<String> queryLostRecord(String openDate,String endDate) {
 		return sumResultMapper.queryLostRecord(openDate,endDate);
 	}
