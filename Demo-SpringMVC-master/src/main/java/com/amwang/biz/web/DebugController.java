@@ -12,12 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.amwang.biz.serverModel.entity.SumEachNum;
 import com.amwang.biz.service.MyserverGetDataService;
 import com.amwang.common.LogBase;
 import com.amwang.common.MyServerPageModel;
+import com.amwang.utils.DateUtil;
 import com.amwang.utils.Echarts;
 import com.amwang.utils.JsonUtils;
 import com.amwang.utils.Series;
@@ -48,5 +50,15 @@ public class DebugController extends LogBase {
 
 		getLogger().info("请求汇总结束:{}",JsonUtils.obj2JsonString(echarts));
 		return JsonUtils.obj2JsonString(echarts);
+	}
+	
+	@RequestMapping(value = "/culDate.htm",method={RequestMethod.POST,RequestMethod.GET},produces={"text/html;charset=UTF-8;","application/json;"})
+	@ResponseBody
+	public String culateDate(@RequestParam("startDate")String startDate , @RequestParam("dateNums")String dateNums) {
+		getLogger().info("请求参数：startDate:{},dateNums:{}",startDate,dateNums);
+		
+		String result = DateUtil.sourcePlusInterval(startDate, Integer.valueOf(dateNums));
+		getLogger().info("日期计算天数：{}",result);
+		return result;
 	}
 }

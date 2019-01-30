@@ -125,14 +125,19 @@ public class DateUtil {
 	/**
 	 * @Title:sourcePlusInterval
 	 * @Description:日期增加
-	 * @param source
+	 * @param source yyyy-MM-dd/yyyyMMdd
 	 * @param interval
 	 * @return
 	 * @throws Exception
 	 * @return String
 	 */
 	public static String sourcePlusInterval(String source, int interval) {
-		DateFormat informater = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat informater ;
+		if (source.contains("-")) {
+			informater = new SimpleDateFormat("yyyy-MM-dd");
+		} else {
+			informater = new SimpleDateFormat("yyyyMMdd");
+		}
 		Calendar calendar = Calendar.getInstance();
 		try {
 			calendar.setTime(informater.parse(source));
@@ -190,16 +195,11 @@ public class DateUtil {
 	}
 
 	/**
-	 * @Title:getAppointDay
-	 * @Description:TODO(得到指定日期)
-	 * @param @param num
-	 * @param @param fmt
-	 * @param @return 设定文件
-	 * @return String
-	 * @throws
 	 * 
-	 * @param num
-	 * @param fmt
+	 * <p>Title: getAppointDay</p>  
+	 * <p>Description: 得到当前日期前后指定格式的日期</p>  
+	 * @param fmt 格式
+	 * @param num 加减数
 	 * @return
 	 */
 	public static String getAppointDay(String fmt, int num) {
@@ -273,6 +273,12 @@ public class DateUtil {
 		return resDate;
 	}
 
+	/**
+	 * 获取当前时间
+	 * <p>Title: getNowDate</p>  
+	 * <p>Description: 返回当前系统时间 </p>  
+	 * @return
+	 */
 	public static Date getNowDate() {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String s = DateUtil.getCurrentTimeStamp();
@@ -286,7 +292,9 @@ public class DateUtil {
 	}
 	
 	/**
-	 * 月份增加
+	 * 月份增减
+	 * <p>Title: monthPlusToString</p>  
+	 * <p>Description: 返回增减后的日期 </p>  
 	 * @param month
 	 * @param item
 	 * @return
