@@ -80,8 +80,9 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	 */
 	@Test
 	public void testDate() {
-		String startDate = "2018-11-20";
-		String endDate = "2018-10-01";
+		String startDate = "2018-12-31";
+		String endDate = "2018-09-24";
+		String start = startDate;
 		int count = 180;
 		boolean flag = false;
 		while (!startDate.equals(endDate)) {
@@ -104,7 +105,7 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 			}
 		}
 		// 汇总丢失数据
-		sumLostRecord(endDate,startDate);
+		sumLostRecord(endDate,start);
 		
 		// 运行结束执行命令
 //		Runtime runtime = Runtime.getRuntime();
@@ -133,7 +134,7 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	@Test
 	public void getUrlTest() throws IOException {
 		int count = 179;
-		String queryDate = "2018-09-25";
+		String queryDate = "2019-01-10";
 		List<TbeisaiData> result = getDataTest("http://kj.13322.com/pk10_history_d20180927.html",count);
 		for (TbeisaiData tbeisaiData : result) {
 			if (null != tbeisaiData) {

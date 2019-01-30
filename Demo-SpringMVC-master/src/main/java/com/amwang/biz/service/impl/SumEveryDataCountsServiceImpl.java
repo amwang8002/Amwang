@@ -40,7 +40,7 @@ public class SumEveryDataCountsServiceImpl implements SumEveryDataCountsService 
 			String firstBig = tSumResult.getFirstBig();
 			String firstSam = tSumResult.getFirstSmall();
 			if (!StringUtils.isEmpty(firstBig)) {
-				sequences[0][0]++; //冠军-大 的次数递增
+				sequences[0][0]++; //冠-大 的次数递增
 			} else {
 				sequences[0][0] = 0;  // 为空，归0
 			}
@@ -56,6 +56,8 @@ public class SumEveryDataCountsServiceImpl implements SumEveryDataCountsService 
 		}
 		resultCounts.setPosition("FIRST");
 		resultCounts.setType("BIG");
+		resultCounts.setNum3(counts[2]);
+		resultCounts.setNum4(counts[3]);
 		resutList.add(resultCounts);
 		return resutList;
 	}

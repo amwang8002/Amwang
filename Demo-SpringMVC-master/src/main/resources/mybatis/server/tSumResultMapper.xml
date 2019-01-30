@@ -56,7 +56,7 @@
   <select id="queryByCondition" parameterType="string" resultMap="BaseResultMap">
   	SELECT
 		<include refid="Base_Column_List"/>
-  	from t_sum_result t
+  	from T_SUM_RESULT t
 	WHERE 1=1 
 <!-- 	and t.OPEN_DATE BETWEEN '2018-08-04' and '2018-08-04'  -->
 <!-- 	and t.TEXT_NO BETWEEN '699000' and '699200' -->

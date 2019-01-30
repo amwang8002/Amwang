@@ -17,12 +17,17 @@
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<encoder charset="UTF-8" />
 		<file>${logRoot}/default.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${logRoot}/default.log.%d{yyyy-MM-dd}.%i.zip
+		<!-- 设置滚动策略 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!--设置日志命名模式-->
+			<fileNamePattern>${logRoot}/%d{yyyy-MM,aux}/default/default.%d{yyyy-MM-dd}.%i.log.zip
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
-				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP" />
-			<maxFileSize>1GB</maxFileSize>
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP" >
+			<!-- 超过30MB时，触发滚动策略 -->
+				<maxFileSize>5MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!--最多保留30天log-->
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 		<layout class="ch.qos.logback.classic.PatternLayout">
@@ -34,12 +39,13 @@
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<encoder charset="UTF-8" />
 		<file>${logRoot}/job-service.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${logRoot}/job-service.log.%d{yyyy-MM-dd}.%i.zip
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${logRoot}/%d{yyyy-MM,aux}/job-service/job-service.%d{yyyy-MM-dd}.%i.log.zip
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
-				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP" />
-			<maxFileSize>1GB</maxFileSize>
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP" >
+				<maxFileSize>100KB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
 			<maxHistory>60</maxHistory>
 		</rollingPolicy>
 		<layout class="ch.qos.logback.classic.PatternLayout">
@@ -51,12 +57,13 @@
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<encoder charset="UTF-8" />
 		<file>${logRoot}/beisai-service.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${logRoot}/beisai-service.log.%d{yyyy-MM-dd}.%i.zip
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${logRoot}/%d{yyyy-MM,aux}/beisai-service/beisai-service.%d{yyyy-MM-dd}.%i.log.zip
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
-				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP" />
-			<maxFileSize>1GB</maxFileSize>
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP" >
+				<maxFileSize>100KB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
 			<maxHistory>60</maxHistory>
 		</rollingPolicy>
 		<layout class="ch.qos.logback.classic.PatternLayout">
@@ -68,12 +75,13 @@
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<encoder charset="UTF-8" />
 		<file>${logRoot}/service.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${logRoot}/service.log.%d{yyyy-MM-dd}.%i.zip
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${logRoot}/%d{yyyy-MM,aux}/service/service.%d{yyyy-MM-dd}.%i.log.zip
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
-				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP" />
-			<maxFileSize>1GB</maxFileSize>
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP" >
+				<maxFileSize>5MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
 			<maxHistory>60</maxHistory>
 		</rollingPolicy>
 		<layout class="ch.qos.logback.classic.PatternLayout">
@@ -85,12 +93,13 @@
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<encoder charset="UTF-8" />
 		<file>${logRoot}/biz.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${logRoot}/biz.log.%d{yyyy-MM-dd}.%i.zip
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${logRoot}/%d{yyyy-MM,aux}/biz/biz.%d{yyyy-MM-dd}.%i.log.zip
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
-				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP" />
-			<maxFileSize>1GB</maxFileSize>
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP" >
+				<maxFileSize>100KB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 		<layout class="ch.qos.logback.classic.PatternLayout">
@@ -108,9 +117,13 @@
 			<onMatch>ACCEPT</onMatch>
 			<onMismatch>DENY</onMismatch>
 		</filter>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${logRoot}/error.log.%d{yyyy-MM-dd}.zip
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${logRoot}/%d{yyyy-MM,aux}/error/error.%d{yyyy-MM-dd}.%i.log.zip
 			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP" >
+				<maxFileSize>100KB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
 		<layout class="ch.qos.logback.classic.PatternLayout">
 			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n
