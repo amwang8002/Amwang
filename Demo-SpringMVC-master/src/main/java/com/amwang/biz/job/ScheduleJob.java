@@ -41,7 +41,7 @@ public class ScheduleJob {
 	@Autowired
 	private DoubleSumService doubleSumService;
 	
-	@Scheduled(cron = "10 3/5 9-23 * * ?")
+	@Scheduled(cron = "10 30/20 9-23 * * ?")
 	public void getData() throws IOException{
 		log.info("爬取数据开始时间："+DateUtil.getCurrentTimeStamp());
 		List<TbeisaiData> result = GetDataFromBeisai.getUrlInfo("http://kj.13322.com/pk10_history_dtoday.html");
