@@ -57,7 +57,7 @@ public class DebugController extends LogBase {
 	public String culateDate(@RequestParam("startDate")String startDate , @RequestParam("dateNums")String dateNums) {
 		getLogger().info("请求参数：startDate:{},dateNums:{}",startDate,dateNums);
 		
-		String result = DateUtil.sourcePlusInterval(startDate, Integer.valueOf(dateNums));
+		String result = DateUtil.sourcePlusInterval(startDate, Integer.valueOf(dateNums.trim() ));
 		getLogger().info("日期计算天数：{}",result);
 		return result;
 	}
