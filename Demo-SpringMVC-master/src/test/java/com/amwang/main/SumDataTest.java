@@ -80,8 +80,8 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	 */
 	@Test
 	public void testDate() {
-		String startDate = "2018-12-31";
-		String endDate = "2018-09-24";
+		String startDate = "2019-02-25";
+		String endDate = "2019-02-17";
 		String start = startDate;
 		int count = 180;
 		boolean flag = false;
@@ -134,8 +134,8 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	@Test
 	public void getUrlTest() throws IOException {
 		int count = 179;
-		String queryDate = "2019-01-10";
-		List<TbeisaiData> result = getDataTest("http://kj.13322.com/pk10_history_d20180927.html",count);
+		String queryDate = "2019-02-20";
+		List<TbeisaiData> result = getDataTest("http://kj.13322.com/pk10_history_d20190220.html",count);
 		for (TbeisaiData tbeisaiData : result) {
 			if (null != tbeisaiData) {
 				service.addRecord(tbeisaiData);
