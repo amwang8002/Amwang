@@ -68,7 +68,11 @@ String path = request.getContextPath();
 	                   dataType: "text",
 	                   success: function(data){
 	                       $("#results").html('<h3>'+data+'</h3>');
-	                    }
+	                    },
+	                   error: function(e){
+	                	   console.log(e);
+	                	   alert(e);
+	                   }
 	                });
             	} else {
             		alert("请先填写时间和计算天数")
