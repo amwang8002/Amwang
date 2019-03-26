@@ -20,6 +20,9 @@ public class JavaTest {
 		System.out.println(JsonUtils.list2JsonString(list2));
 		
 		System.out.println(equalList(list1, list2));
+		
+		
+		
 	}
 
 	public static boolean equalList(List list1, List list2) {

@@ -13,6 +13,7 @@ package com.amwang.temptest;
 import org.junit.Test;
 
 import com.amwang.biz.AbstractSpringContextTestSupport;
+import com.amwang.utils.Base64;
 import com.amwang.utils.DateUtil;
 
 /**  
@@ -32,6 +33,10 @@ public class DateCulTest extends AbstractSpringContextTestSupport {
 		String fmt = "yyyy-MM-dd";
 		String fmt2 = "yyyyMMdd";
 		
+		char start = startDate.charAt(0);
+		char start2 = fmt.charAt(0);
+		
+		System.out.println(start != start2);
 		String result1 ;
 		String result2 ;
 		
@@ -41,5 +46,12 @@ public class DateCulTest extends AbstractSpringContextTestSupport {
 		
 		result2 = DateUtil.getAppointDay(fmt2, 3);
 		System.out.println("++++"+result2);
+	}
+	
+	
+	@Test
+	public void base64Encode() {
+		String result = Base64.encode("qwer");
+		System.out.println("qwer:"+result);
 	}
 }
