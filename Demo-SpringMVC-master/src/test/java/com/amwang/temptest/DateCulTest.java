@@ -51,7 +51,18 @@ public class DateCulTest extends AbstractSpringContextTestSupport {
 	
 	@Test
 	public void base64Encode() {
-		String result = Base64.encode("qwer");
-		System.out.println("qwer:"+result);
+//		String result = Base64.encode("qwer");
+//		System.out.println("qwer:"+result);
+		String aaa = "dddddd";
+		int result = aaa.indexOf("#");
+		System.out.println(result);
+	}
+	
+	@Test
+	public void timestr() {
+		System.out.println(DateUtil.getCurrentDateTimeStr("yyyyMMddHHmmss"));
+		System.out.println(DateUtil.getCurrentDateTimeStr("yyyyMMddHHmmssSS"));
+		System.out.println(DateUtil.getCurrentDateTimeStr("yyyyMMddHHmmssSSS"));
+		System.out.println(DateUtil.getCurrentDateTimeStr("yyyyMMddHHmmssSSS").length());
 	}
 }

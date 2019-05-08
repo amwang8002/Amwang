@@ -10,10 +10,16 @@ Just for the sake of learning.</p>
 */ 
 package com.amwang.temptest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.jsoup.helper.StringUtil;
 import org.junit.Test;
 
 import com.amwang.biz.AbstractSpringContextTestSupport;
@@ -65,6 +71,59 @@ public class MapTest extends AbstractSpringContextTestSupport {
 		System.out.println("合并后》》》》》》");
 		for (String onekey : one.keySet()) {
 			System.out.println(onekey+":"+one.get(onekey));
+		}
+	}
+	
+	
+	@Test
+	public void validateMobileTest() {
+		boolean result = isMobile("18756082221");
+		System.out.println(result);
+	}
+	
+	@Test
+	public void testCount() {
+		int i = 8;
+		int l = 8;
+		
+		int m = i++;
+		int n = ++l;
+		
+		System.out.println(m+"-->"+i);
+		System.out.println(n+"-->"+l);
+	}
+	
+	public boolean isMobile(String str) {
+        if(StringUtil.isBlank(str)){
+            return false;
+        }
+        //手机号长度和格式不限制
+//        return true;
+//        //1\\d{10}
+          String check = "^[1][3,4,5,7,8][0-9]{9}$";
+//        String check = "^1\\d{0-10}$";
+//        String check = "^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|2|3|5|6|7|8|9])\\d{8}$";
+        Pattern regex = Pattern.compile(check);
+        Matcher matcher = regex.matcher(str.trim());
+        return matcher.matches();
+	}
+	
+	@Test
+	public void testListSize() {
+		List<String> liStrings = new ArrayList<String>();
+		for (int i = 1; i <= 10 ; i++) {
+			liStrings.add(String.valueOf(i));
+		}
+		
+		int count = 1;
+		for (String string : liStrings) {
+			if (liStrings.size() == count) {
+				
+				System.out.println(10+"--"+string);
+			} else {
+				System.out.println(string);
+			}
+			count++;
 		}
 	}
 }

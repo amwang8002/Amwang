@@ -46,7 +46,7 @@ String path = request.getContextPath();
         	$("#dateNums").blur(function(){
         		var num = $("#dateNums").val();
         		if (num != "") {
-	        		if (/^\d+$/.test(num)) {
+	        		if (/^(\-?)\d+$/.test(num)) {
 		        		if (num != ""){
 		        			flag = 000;
 		        		} else {
@@ -56,7 +56,7 @@ String path = request.getContextPath();
 		        			$("#culdate").prop('disabled', false);
 		        		}
 	        		} else if(num != "" || num != null) {
-	        			alert("请填写正确数字"+num+".");
+	        			alert("请填写正确数字 {"+num+"}");
 	        		}
         		}
         	})

@@ -46,7 +46,7 @@ public class FileReader {
 //		bufferedReader();
 		
 		// 字符流
-//		streamReader();
+		streamReader();
 		
 		String result = Base64.encode("qwer");
 		System.out.println(result);
@@ -90,8 +90,8 @@ public class FileReader {
 	private static void streamReader() {
 		System.out.println("字符流>>>>>>开始");
 		long t1 = System.currentTimeMillis();
-		File file = new File("D:/mypeanut/pic.rar");
-		File path = new File("E:\\test_prj\\pic_copy_"+t1+".rar");
+		File file = new File("E:\\12-对外项目文档\\深圳科陆_szclou\\科陆结算中心_实施方案说明书v2.0.4 - 20190301.docx");
+		File path = new File("E:\\test_prj\\docx_jar_"+t1+".jar");
 		InputStream is = null;
 		OutputStream os = null;
 		try {
