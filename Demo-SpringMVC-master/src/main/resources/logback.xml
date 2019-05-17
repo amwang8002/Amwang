@@ -134,25 +134,25 @@
 	<!-- logger -->
 	<logger name="com.amwang.biz.job" additivity="true">
 		<level value="info" />
-<!-- 		<appender-ref ref="CONSOLE-APPENDER" /> -->
+		<appender-ref ref="CONSOLE-APPENDER" />
 		<appender-ref ref="SCHEUDLEJOB-APPENDER" />
 		<appender-ref ref="ERROR-APPENDER" />
 	</logger>
 	<logger name="com.amwang.biz.web" additivity="true">
 		<level value="info" />
-<!-- 		<appender-ref ref="CONSOLE-APPENDER" /> -->
+		<appender-ref ref="CONSOLE-APPENDER" />
 		<appender-ref ref="BIZ-APPENDER" />
 		<appender-ref ref="ERROR-APPENDER" />
 	</logger>
 	<logger name="com.amwang.biz.service" additivity="true">
 		<level value="info" />
-<!-- 		<appender-ref ref="CONSOLE-APPENDER" /> -->
+		<appender-ref ref="CONSOLE-APPENDER" />
 		<appender-ref ref="SERVICE-APPENDER" />
 		<appender-ref ref="ERROR-APPENDER" />
 	</logger>
 	<logger name="com.amwang.biz.myserverGetData" additivity="true">
 		<level value="info" />
-<!-- 		<appender-ref ref="CONSOLE-APPENDER" /> -->
+		<appender-ref ref="CONSOLE-APPENDER" />
 		<appender-ref ref="BEISAISERVICE-APPENDER" />
 		<appender-ref ref="ERROR-APPENDER" />
 	</logger>

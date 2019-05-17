@@ -8,6 +8,25 @@
 	<version>1.0</version>
 	<name>SpringMVC-Maven Maven Webapp</name>
 	<url>http://maven.apache.org</url>
+	
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<profiles.active>dev</profiles.active>
+			</properties>
+			<activation>    <!-- 指定生效的profile -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<profiles.active>prod</profiles.active>
+			</properties>
+		</profile>
+	</profiles>
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>3.2.16.RELEASE</spring.version>
@@ -36,7 +55,11 @@
 	</properties>
 
 	<dependencies>
-	
+		<dependency>
+		    <groupId>javax.xml.bind</groupId>
+		    <artifactId>jaxb-api</artifactId>
+		    <version>2.3.1</version>
+		</dependency>
 		<dependency>
 		    <groupId>gnu.getopt</groupId>
 		    <artifactId>java-getopt</artifactId>
@@ -344,6 +367,14 @@
 	</dependencies>
 	<build>
 		<finalName>dbf-root</finalName>
+		
+		<!-- 配置文件打包时的映射路径，profiles.active获取当前生效的profile路径 -->
+		<resources>
+			<resource>
+				<directory>src/main/resources/</directory> <!-- 需要处理的路径 -->
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
