@@ -13,12 +13,5 @@
 	<context:property-placeholder
 		location="classpath*:config.properties" />
 
-	<!-- 数据源配置 -->
-	<bean id="dataSourceMyserver"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://101.132.160.165:3306/amwang?"></property>
-		<property name="username" value="dbf"></property>
-		<property name="password" value="dbf"></property>
-	</bean>
+
 </beans>
