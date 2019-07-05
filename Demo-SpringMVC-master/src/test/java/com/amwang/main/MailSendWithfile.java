@@ -16,14 +16,20 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 
+/**  
+* <p>Title: MailSendWithfile</p>  
+* <p>Description: </p>  
+* @author amwang  
+* @date 2019年5月29日  
+*/ 
 public class MailSendWithfile {
 
 	private String host = "smtp.qq.com"; // smtp服务器
 	private String from = "783774470@qq.com"; // 发件人地址
-	private String to = "913275571@qq.com"; // 收件人地址
-	private String affix = "E:\\个人文件\\jenkins自动部署文档.doc"; // 附件地址
-	private String affixName = "jenkins自动部署文档.doc"; // 附件名称
-	private String pwd = "mftfjymlsuzybfhe"; // 密码
+	private String to = "amwang8002_78@kindle.cn"; // 收件人地址
+	private String affix = "E:\\个人文件\\TIM接收\\人月神话（高清中文）.pdf"; // 附件地址
+	private String affixName = "人月神话.pdf"; // 附件名称
+	private String pwd = "kzmbdxoqqlsnbeaf"; // 密码
 	private String subject = "测试邮件"; // 邮件标题
 
 	public void send() {

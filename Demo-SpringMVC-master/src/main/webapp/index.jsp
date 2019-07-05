@@ -18,10 +18,12 @@ String path = request.getContextPath();
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="${ctxPath }/bootstrap/bootstrapDatepickr-1.0.0.css">
-<script type="text/javascript" src="${ctxPath }/bootstrap/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="${ctxPath }/jquery/jquery.js"></script>
 <script src="${ctxPath }/bootstrap/bootstrap.min.js"></script>
+<script src="${ctxPath }/bootstrap/bootbox.js"></script>
 <script src="${ctxPath }/bootstrap/bootstrapDatepickr-1.0.0.min.js"></script>
 <%-- <script type="text/javascript" src="${ctxPath }/jquery/jquery.js"></script> --%>
+<script src="//g.alicdn.com/dingding/dinglogin/0.0.5/ddLogin.js"></script>
 <script type="text/javascript">
 	var url = "${ctxPath }/culDate.htm";
         //按钮单击时执行
@@ -56,7 +58,7 @@ String path = request.getContextPath();
 		        			$("#culdate").prop('disabled', false);
 		        		}
 	        		} else if(num != "" || num != null) {
-	        			alert("请填写正确数字 {"+num+"}");
+	        			bootbox.alert("请填写正确数字 {"+num+"}");
 	        		}
         		}
         	})
@@ -76,14 +78,26 @@ String path = request.getContextPath();
 	                       $("#results").html('<h3>'+data+'</h3>');
 	                    },
 	                   error: function(e){
-	                	   console.log(e);
-	                	   alert(e);
+	                	   bootbox.alert(e);
 	                   }
 	                });
             	} else {
-            		alert("请先填写时间和计算天数")
+            		bootbox.alert("请先填写时间和计算天数")
             	}
              });
+        	
+        	/*
+        	* 解释一下goto参数，参考以下例子：
+        	* var url = encodeURIComponent('http://localhost.me/index.php?test=1&aa=2');
+        	* var goto = encodeURIComponent('https://oapi.dingtalk.com/connect/oauth2/sns_authorize?appid=appid&response_type=code&scope=snsapi_login&state=STATE&redirect_uri='+url)
+        	*/
+        	var obj = DDLogin({
+       	     id:"login_code",//这里需要你在自己的页面定义一个HTML标签并设置id，例如<div id="login_container"></div>或<span id="login_container"></span>
+       	     goto: encodeURIComponent('https://oapi.dingtalk.com/connect/qrconnect?appid=dingoajtqtqbirzlsaiaqs&response_type=code&scope=snsapi_login&state=1562311583356&redirect_uri=http://dingtest.vfinance.cn/DingDingTest/loginCallback.htm'), //请参考注释里的方式
+       	     style: "border:none;background-color:#FFFFFF;",
+       	     width : "365",
+       	     height: "400"
+       	 });
         });
 </script> 
 </head>
@@ -114,7 +128,7 @@ String path = request.getContextPath();
 	<div class="row">
 	   <label class="col-sm-2 control-label">加减天数</label>
 	   <div class="col-md-4">
-	     <input type="text" id="dateNums" value="" placeholder="输入正整数或负整数" required="required" class="form-control">
+	     <input type="text" id="dateNums" value="" placeholder="输入需要加减的天数" required="required" class="form-control">
 	   </div>
 	</div>
 	<hr>
