@@ -9,15 +9,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.amwang.utils.JsonUtils;
 
 /**  
- * Given a 1-d array candy crush, return the shortest array after removing all the continuous same numbers (the repeating number >= 3)
-	input: 1-d array [1, 3, 3, 3, 2, 2, 2, 3, 1]
-	return: [1, 1]
-	Time complexity should be better than O(n^2)
+ * 
 * <p>Title: JavaTest</p>  
 * <p>Description: </p>  
 * @author amwang  
@@ -26,6 +25,14 @@ import com.amwang.utils.JsonUtils;
 public class JavaTest {
 
 	public static void main(String[] args) throws Exception {
+		
+		Map<String, String> example = new HashMap<String, String>();
+		example.put("aa", "aa");
+		example.put("bb", "bb");
+		
+		Map<String, Object> extension = new HashMap<>();
+		extension.put("validate", example);
+		
 //		List<String> list1 = new ArrayList<String>();
 //		List<String> list2 = new ArrayList<String>();
 //		for (int i = 0; i < 10; i++) {
@@ -93,4 +100,5 @@ public class JavaTest {
 		
 		System.out.println(result);
 	}
+	
 }

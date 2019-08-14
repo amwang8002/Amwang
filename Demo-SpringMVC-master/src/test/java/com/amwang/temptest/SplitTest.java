@@ -10,6 +10,7 @@ Just for the sake of learning.</p>
 */
 package com.amwang.temptest;
 
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import com.amwang.biz.AbstractSpringContextTestSupport;
@@ -30,11 +31,18 @@ public class SplitTest extends AbstractSpringContextTestSupport {
 
 	public static void main(String[] args) {
 
-		String[] array = new String[] { "1", "3", "3", "3", "2", "2", "2", "3", "1", "8", "5", "9", "1", "5", "6", "2",
-				"3", "8", "8", "5", "9" };
-		String[] destarr = rmRepeatNum(array);
-
-		System.out.println(JsonUtils.obj2JsonString(destarr));
+		String city = "";
+		String town = null;
+		
+		System.out.println(String.valueOf(city).length() < 2);
+		System.out.println(String.valueOf(town).length() < 2);
+		Assert.isTrue(String.valueOf(city).length() < 2, "aaa");
+		Assert.isTrue(String.valueOf(town).length() < 2, "town长度过长");
+//		String[] array = new String[] { "1", "3", "3", "3", "2", "2", "2", "3", "1", "8", "5", "9", "1", "5", "6", "2",
+//				"3", "8", "8", "5", "9" };
+//		String[] destarr = rmRepeatNum(array);
+//
+//		System.out.println(JsonUtils.obj2JsonString(destarr));
 	}
 
 	/**

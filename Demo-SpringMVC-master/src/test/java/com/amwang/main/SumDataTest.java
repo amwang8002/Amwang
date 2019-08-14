@@ -80,7 +80,7 @@ public class SumDataTest extends AbstractSpringContextTestSupport{
 	 */
 	@Test
 	public void testDate() {
-		String startDate = "2019-05-24";
+		String startDate = "2019-07-04";
 		String endDate = "2019-05-16";
 		String start = startDate;
 		int count = 180;

@@ -14,8 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.amwang.biz.AbstractSpringContextTestSupport;
+import com.amwang.utils.ChartUtils;
 import com.amwang.utils.JsonUtils;
 
 /**  
@@ -50,5 +52,12 @@ public class ArrListTest extends AbstractSpringContextTestSupport {
 		model2.setCode("code2");
 		result.add(model2);
 		return result;
+	}
+	
+	@Autowired
+	public void ChartTest() {
+		
+		String randomCharts = ChartUtils.getRandomStr(8);
+		System.out.println(randomCharts);
 	}
 }

@@ -24,8 +24,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
+import java.util.Properties;
 
 import com.amwang.utils.Base64;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 /**  
 * <p>Title: FileReader</p>  
@@ -46,10 +48,12 @@ public class FileReader {
 //		bufferedReader();
 		
 		// 字符流
-		streamReader();
+//		streamReader();
 		
-		String result = Base64.encode("qwer");
-		System.out.println(result);
+		streamReader2();
+		
+//		String result = Base64.encode("qwer");
+//		System.out.println(result);
 	}
 	
 	/**
@@ -127,5 +131,57 @@ public class FileReader {
 		}
 		long t2 = System.currentTimeMillis();
 		System.out.println(t2-t1);
+	}
+	/**
+	 * 字符流读文件
+	 * <p>Title: streamReader</p>  
+	 * <p>Description: </p>
+	 */
+	private static void streamReader2() {
+		
+		Properties properties = new Properties();
+		
+		System.out.println("字符流>>>>>>开始");
+		long t1 = System.currentTimeMillis();
+		File file = new File("D:\\opt\\pay\\config\\basis\\guardian\\config-guardian-env.dev.properties");
+		File path = new File("E:\\test_prj\\docx_jar_"+t1+".jar");
+		InputStream is = null;
+		OutputStream os = null;
+		try {
+			is = new BufferedInputStream(new FileInputStream(file));
+			os = new BufferedOutputStream(new FileOutputStream(path));
+			int len = -1;
+			properties.load(is);
+			String appkey = properties.getProperty("internal.appKey");
+			String token = properties.getProperty("internal.token");
+			String url = properties.getProperty("internal.recCallback.url");
+			System.out.println(appkey+"");
+			System.out.println(token+"");
+			System.out.println(url+"");
+			
+			System.out.println("字符流>>>>>>结束"+appkey);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				is.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			try {
+				os.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		long t2 = System.currentTimeMillis();
+		System.out.println("耗时:"+(t2-t1));
 	}
 }

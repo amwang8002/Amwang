@@ -10,11 +10,14 @@ Just for the sake of learning.</p>
 */ 
 package com.amwang.temptest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 
 import com.amwang.biz.AbstractSpringContextTestSupport;
-import com.amwang.utils.Base64;
 import com.amwang.utils.DateUtil;
+import com.amwang.utils.JsonUtils;
 
 /**  
 * <p>Title: DateCulTest</p>  
@@ -23,6 +26,22 @@ import com.amwang.utils.DateUtil;
 * @date 2019年1月30日  
 */
 public class DateCulTest extends AbstractSpringContextTestSupport {
+	
+	@Test
+	public void testMapPut() {
+		Map<String, String> example = new HashMap<String, String>();
+		example.put("aa", "aa");
+		example.put("bb", "bb");
+		
+		Map<String, Object> extension = new HashMap<>();
+		extension.put("validate", example);
+		extension.put("cc", "cc");
+		
+		System.out.println(JsonUtils.obj2JsonString(extension));
+		
+		Map<String, String> tomap = (Map<String, String>) extension.get("validate");
+		System.out.println(tomap.get("aa"));
+	}
 
 	
 	@Test
@@ -60,9 +79,18 @@ public class DateCulTest extends AbstractSpringContextTestSupport {
 	
 	@Test
 	public void timestr() {
-		System.out.println(DateUtil.getCurrentDateTimeStr("yyyyMMddHHmmss"));
-		System.out.println(DateUtil.getCurrentDateTimeStr("yyyyMMddHHmmssSS"));
+		System.out.println(DateUtil.getCurrentDateTimeStr("EEE"));
+		System.out.println(DateUtil.getCurrentDateTimeStr("yyyy-MM-dd EEE HH:mm:ss"));
 		System.out.println(DateUtil.getCurrentDateTimeStr("yyyyMMddHHmmssSSS"));
 		System.out.println(DateUtil.getCurrentDateTimeStr("yyyyMMddHHmmssSSS").length());
+	}
+	
+	@Test
+	public void monthTest() {
+		Integer time[] = {1,2,3,4,5,6,7,8,9,10,11,12}; 
+		 for (Integer integer : time) {
+			 System.out.println(integer +"月，第一天："+DateUtil.getFirstDayOfMonth(integer));
+			 System.out.println(integer +"月，最后一天："+DateUtil.getLastDayOfMonth(integer));
+		 }
 	}
 }
