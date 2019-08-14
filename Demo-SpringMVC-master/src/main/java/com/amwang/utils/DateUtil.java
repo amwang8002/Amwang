@@ -360,5 +360,47 @@ public class DateUtil {
 	    String lastDayOfMonth = sdf.format(cal.getTime())+" 23:59:59";
 	    return lastDayOfMonth;
 	 }
+	 
+	/**
+	  * 获取本周的第一天
+	  * @return String
+	  * **/
+	 public static String getWeekStart(){
+	     Calendar cal=Calendar.getInstance();
+	     cal.add(Calendar.WEEK_OF_MONTH, 0);
+	     cal.set(Calendar.DAY_OF_WEEK, 2);
+	     Date time=cal.getTime();
+	     return new SimpleDateFormat("yyyy-MM-dd").format(time)+" 00:00:00";
+	 }
+	 /**
+	  * 获取本周的最后一天
+	  * @return String
+	  * **/
+	 public static String getWeekEnd(){
+	     Calendar cal=Calendar.getInstance();
+	     cal.set(Calendar.DAY_OF_WEEK, cal.getActualMaximum(Calendar.DAY_OF_WEEK));
+	     cal.add(Calendar.DAY_OF_WEEK, 1);
+	     Date time=cal.getTime();
+	     return new SimpleDateFormat("yyyy-MM-dd").format(time)+" 23:59:59";
+	 }
+	 /**
+	  * 获取本年的第一天
+	  * @return String
+	  * **/
+	 public static String getYearStart(){
+	     return new SimpleDateFormat("yyyy").format(new Date())+"-01-01";
+	 }
+	 
+	 /**
+	  * 获取本年的最后一天
+	  * @return String
+	  * **/
+	 public static String getYearEnd(){
+	     Calendar calendar = Calendar.getInstance();
+	     calendar.set(Calendar.MONTH,calendar.getActualMaximum(Calendar.MONTH));
+	     calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+	     Date currYearLast = calendar.getTime();
+	     return new SimpleDateFormat("yyyy-MM-dd").format(currYearLast)+" 23:59:59";
+	 }
 	
 }
