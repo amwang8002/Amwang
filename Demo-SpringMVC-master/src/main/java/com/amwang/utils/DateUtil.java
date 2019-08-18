@@ -367,8 +367,11 @@ public class DateUtil {
 	  * **/
 	 public static String getWeekStart(){
 	     Calendar cal=Calendar.getInstance();
+		 if(cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+			cal.add(Calendar.DATE, -1);
+		 }
 	     cal.add(Calendar.WEEK_OF_MONTH, 0);
-	     cal.set(Calendar.DAY_OF_WEEK, 2);
+	     cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 	     Date time=cal.getTime();
 	     return new SimpleDateFormat("yyyy-MM-dd").format(time)+" 00:00:00";
 	 }
@@ -378,6 +381,9 @@ public class DateUtil {
 	  * **/
 	 public static String getWeekEnd(){
 	     Calendar cal=Calendar.getInstance();
+	     if(cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+	    	 cal.add(Calendar.DATE, -1);
+	     }
 	     cal.set(Calendar.DAY_OF_WEEK, cal.getActualMaximum(Calendar.DAY_OF_WEEK));
 	     cal.add(Calendar.DAY_OF_WEEK, 1);
 	     Date time=cal.getTime();
@@ -402,5 +408,59 @@ public class DateUtil {
 	     Date currYearLast = calendar.getTime();
 	     return new SimpleDateFormat("yyyy-MM-dd").format(currYearLast)+" 23:59:59";
 	 }
-	
+	 /**
+	  * 两个日期是否同一天
+	  * <p>Description:  </p>  
+	  * <p>Title: isSameDay</p>  
+	  * @param day1
+	  * @param day2
+	  * @return
+	  */
+	 public static boolean isSameDay(Date day1, Date day2) {
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    String ds1 = sdf.format(day1);
+	    String ds2 = sdf.format(day2);
+	    if (ds1.equals(ds2)) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
+	 
+
+		/**
+		 * 获取当天0点
+		 * <p>Description:  </p>  
+		 * <p>Title: getCurrentDayStart  yyyy-MM-dd 00:00:00</p>  
+		 * @return
+		 */
+	public static Date getCurrentDayStart() {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String current = getCurrentDate() +" 00:00:00";
+		Date date = null;
+		try {
+			date = formatter.parse(current);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
+	}
+
+	/**
+	 * 获取当天24点
+	 * <p>Description:  </p>  
+	 * <p>Title: getCurrentDayStart  yyyy-MM-dd 23:59:59</p>  
+	 * @return
+	 */
+	public static Date getCurrentDayEnd() {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String current = getCurrentDate() +" 23:59:59";
+		Date date = null;
+		try {
+			date = formatter.parse(current);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
+	}
 }
