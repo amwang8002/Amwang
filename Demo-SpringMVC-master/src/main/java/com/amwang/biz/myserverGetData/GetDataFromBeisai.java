@@ -48,7 +48,7 @@ public class GetDataFromBeisai extends LogBase {
 						num++;
 						demos.add(demo);
 						flag = false;
-						if (num == 2) {
+						if (num == 3) { // 每次包含前三条记录
 							break;
 						}
 //						return demo;
